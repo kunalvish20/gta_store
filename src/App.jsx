@@ -16,8 +16,8 @@ import {ProductPage} from './pages/ProductPage';
 function RouteView() {
   const route = useRoute();
 
-  if (route === '/' || route === '/home') return <Home />;
-  if (route === '/homepage-secondary' || route === '/home-secondary') return <HomeSecondary />;
+  if (route === '/' || route === '/home' || route === '/homepage-secondary' || route === '/home-secondary') return <HomeSecondary />;
+  if (route === '/old-homepage' || route === '/old-home') return <Home />;
   if (route === PRODUCT_PATH || route.startsWith('/product/')) return <ProductPage />;
   if (route === '/cart') return <Cart />;
   if (route === '/checkout') return <Checkout />;

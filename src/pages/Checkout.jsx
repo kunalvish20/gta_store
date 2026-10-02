@@ -113,7 +113,7 @@ export function Checkout() {
           <p className="secondary-kicker">PAYMENT VERIFIED</p>
           <h1>Pre-order confirmed.</h1>
           <p>Your payment is verified successfully. Payment ID: <b>{success.paymentId}</b></p>
-          <button className="secondary-preorder-btn" onClick={() => go('/homepage-secondary')}>BACK TO DROP <ArrowRight size={19} /></button>
+          <button className="secondary-preorder-btn" onClick={() => go('/')}>BACK TO DROP <ArrowRight size={19} /></button>
         </section>
       </main>
     );

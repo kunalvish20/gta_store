@@ -8,6 +8,7 @@ export function Footer() {
         <p>Single-product collector storefront focused on clear buying, clean product proof, and fast checkout.</p>
       </div>
       <nav>
+        <a href="#/old-homepage">Old Homepage</a>
         <a href={`#${PRODUCT_PATH}`}>Product</a>
         <a href="#/cart">Cart</a>
         <a href="#/checkout">Checkout</a>

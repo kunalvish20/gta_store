@@ -15,7 +15,7 @@ export function Header() {
   const route = useRoute();
   const {count} = useStore();
   const [open, setOpen] = useState(false);
-  const isPreorderRoute = route === '/homepage-secondary' || route === '/home-secondary' || route === PRODUCT_PATH || route.startsWith('/product/');
+  const isPreorderRoute = ['/', '/home', '/homepage-secondary', '/home-secondary'].includes(route) || route === PRODUCT_PATH || route.startsWith('/product/');
 
   const navigate = path => {
     setOpen(false);

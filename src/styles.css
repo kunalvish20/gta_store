@@ -1524,7 +1524,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
   .secondary-box-stage { min-height: 430px; }
   .secondary-box {
     --box-w: 226px;
-    --box-h: 282px;
+    --box-h: var(--box-w);
     --box-d: 88px;
   }
   .secondary-box-front { padding: 21px; }
@@ -1589,7 +1589,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
 @media (max-width: 390px) {
   .secondary-box {
     --box-w: 204px;
-    --box-h: 256px;
+    --box-h: var(--box-w);
     --box-d: 80px;
   }
   .secondary-box-front strong { font-size: 45px; }
