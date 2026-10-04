@@ -2,6 +2,9 @@ import {createContext, useContext, useEffect, useMemo, useState} from 'react';
 import {PRODUCTS} from '../data/catalog';
 
 const StoreContext = createContext(null);
+const CART_KEY = 'gta_store_cart';
+const LEGACY_CART_KEY = 'dd_cart';
+const LEGACY_PRODUCT_ID = 'dd-collector-box';
 
 const readJson = (key, fallback) => {
   try {
@@ -11,12 +14,24 @@ const readJson = (key, fallback) => {
   }
 };
 
+const readCart = () => {
+  const savedCart = readJson(CART_KEY, null);
+  if (savedCart) return savedCart;
+
+  const legacyCart = readJson(LEGACY_CART_KEY, {});
+  if (legacyCart[LEGACY_PRODUCT_ID]) {
+    return {[PRODUCTS[0].id]: legacyCart[LEGACY_PRODUCT_ID]};
+  }
+
+  return legacyCart;
+};
+
 export function StoreProvider({children}) {
-  const [cart, setCart] = useState(() => readJson('dd_cart', {}));
+  const [cart, setCart] = useState(readCart);
   const [isCartDrawerOpen, setCartDrawerOpen] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('dd_cart', JSON.stringify(cart));
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }, [cart]);
 
   const value = useMemo(() => {

@@ -1,19 +1,20 @@
-import {ArrowRight, Check, PackageCheck, ShieldCheck, Sparkles} from 'lucide-react';
+import {ArrowRight, BadgeCheck, Check, Lock, PackageCheck, ShieldCheck, Sparkles, Star, Truck} from 'lucide-react';
 import {useEffect, useRef} from 'react';
 import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
-import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
+import {PRODUCT, PRODUCT_PATH, REVIEWS} from '../data/catalog';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
 import {useStore} from '../context/StoreContext';
 import {useStickyReveal} from '../hooks/useStickyReveal';
 
-function InteractiveDropBox() {
+function InteractiveDropBox({onOpenProduct}) {
   const boxRef = useRef(null);
   const interaction = useRef({
     yaw: -18,
     pitch: -8,
     dragging: false,
+    moved: false,
     pointerId: null,
     x: 0,
     y: 0,
@@ -47,6 +48,7 @@ function InteractiveDropBox() {
   const onPointerDown = event => {
     const state = interaction.current;
     state.dragging = true;
+    state.moved = false;
     state.pointerId = event.pointerId;
     state.x = event.clientX;
     state.y = event.clientY;
@@ -59,6 +61,7 @@ function InteractiveDropBox() {
 
     const dx = event.clientX - state.x;
     const dy = event.clientY - state.y;
+    if (Math.abs(dx) + Math.abs(dy) > 6) state.moved = true;
     state.x = event.clientX;
     state.y = event.clientY;
     state.yaw += dx * 0.42;
@@ -68,39 +71,49 @@ function InteractiveDropBox() {
   const stopDrag = event => {
     const state = interaction.current;
     if (state.pointerId !== event.pointerId) return;
+    const shouldOpenProduct = !state.moved;
     state.dragging = false;
     state.pointerId = null;
     event.currentTarget.releasePointerCapture?.(event.pointerId);
+    if (shouldOpenProduct) onOpenProduct?.();
   };
 
   return (
-    <div className="secondary-box-stage" aria-label="Interactive rotating pre-order box">
+    <div className="secondary-box-stage" aria-label="Tap to open product page. Drag to rotate pre-order box.">
       <div className="secondary-box-shadow" />
       <div
         className="secondary-box"
+        role="button"
+        tabIndex={0}
         ref={boxRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={stopDrag}
         onPointerCancel={stopDrag}
+        onKeyDown={event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            onOpenProduct?.();
+          }
+        }}
       >
         <div className="secondary-box-face secondary-box-front">
-          <span className="box-kicker">D&amp;D // 001</span>
+          <span className="box-kicker">GTA // 001</span>
           <strong>VICE<br />PACK</strong>
           <div className="box-line" />
           <small>PRE-ORDER EDITION</small>
         </div>
         <div className="secondary-box-face secondary-box-back">
           <span>ONE DROP</span>
-          <b>₹4,999</b>
+          <b>{format(PRODUCT.price)}</b>
           <small>LIMITED PRE-ORDER</small>
         </div>
         <div className="secondary-box-face secondary-box-right"><span>VICE // 001</span></div>
-        <div className="secondary-box-face secondary-box-left"><span>D&amp;D STORE</span></div>
+        <div className="secondary-box-face secondary-box-left"><span>GTA STORE</span></div>
         <div className="secondary-box-face secondary-box-top"><span>PRE-ORDER</span></div>
         <div className="secondary-box-face secondary-box-bottom"><span>2026 DROP</span></div>
       </div>
-      <div className="secondary-drag-hint">DRAG TO ROTATE</div>
+      <div className="secondary-drag-hint">TAP TO VIEW / DRAG TO ROTATE</div>
     </div>
   );
 }
@@ -109,6 +122,7 @@ export function HomeSecondary() {
   const {preorder} = useStore();
   const stickyVisible = useStickyReveal(460);
   const startPreorder = () => preorder(PRODUCT.id, 1);
+  const openProduct = () => go(PRODUCT_PATH);
 
   return (
     <main className="secondary-page">
@@ -121,10 +135,10 @@ export function HomeSecondary() {
         <div className="secondary-hero-copy">
           <p className="secondary-kicker">LIMITED // PRE-ORDER DROP</p>
           <h1>VICE READY<br /><em>DROP BOX.</em></h1>
-          <p className="secondary-subcopy">A black collector box staged under neon magenta motion — made for one clean pre-order decision and a premium product reveal.</p>
+          <p className="secondary-subcopy">A black collector box staged under neon magenta motion, backed by secure checkout, clear policies, and careful preorder support.</p>
         </div>
 
-        <InteractiveDropBox />
+        <InteractiveDropBox onOpenProduct={openProduct} />
 
         <div className="secondary-hero-cta">
           <div className="secondary-price">
@@ -132,10 +146,28 @@ export function HomeSecondary() {
             <b>{format(PRODUCT.price)}</b>
           </div>
           <button className="secondary-preorder-btn" onClick={startPreorder}>
-            PRE-ORDER OUTFIT <ArrowRight size={20} />
+            PRE-ORDER BOX <ArrowRight size={20} />
           </button>
           <p>Tap pre-order to open the cart drawer, then complete secure Razorpay checkout.</p>
         </div>
+      </section>
+
+      <section className="store-trust-band" aria-label="Trusted store details">
+        <article>
+          <Lock />
+          <b>Verified checkout</b>
+          <p>Razorpay payment opens only after the cart total, quantity, and delivery details are reviewed.</p>
+        </article>
+        <article>
+          <Truck />
+          <b>Delivery updates</b>
+          <p>Pre-order status, dispatch, and tracking updates are shared through the contact details used at checkout.</p>
+        </article>
+        <article>
+          <BadgeCheck />
+          <b>Customer support</b>
+          <p>Support links, policy pages, and contact details stay visible in the footer across the whole store.</p>
+        </article>
       </section>
 
       <BoxGallery
@@ -152,18 +184,18 @@ export function HomeSecondary() {
         <div className="secondary-quality-grid">
           <article>
             <Sparkles />
-            <b>High-impact presentation</b>
-            <p>Dark surfaces, controlled magenta glow and large-format square visuals keep attention on the product.</p>
+            <b>Clear product presentation</b>
+            <p>Large square visuals, named gallery items, and consistent pricing keep attention on the exact product being ordered.</p>
           </article>
           <article>
             <ShieldCheck />
-            <b>Focused single-product flow</b>
-            <p>No catalogue clutter. Every section reinforces the same pre-order action and product story.</p>
+            <b>Trust-first buying flow</b>
+            <p>The cart, policy pages, footer, and checkout copy all explain what happens before payment and after order confirmation.</p>
           </article>
           <article>
             <PackageCheck />
-            <b>Mobile-first conversion</b>
-            <p>Fast image loading, touch-friendly sliders and a sticky pre-order CTA only after the user scrolls.</p>
+            <b>Mobile-first performance</b>
+            <p>Priority images, lazy galleries, reduced loader timing, and touch-friendly controls keep browsing quick on smaller screens.</p>
           </article>
         </div>
       </section>
@@ -179,8 +211,18 @@ export function HomeSecondary() {
           </div>
         </div>
         <button className="secondary-preorder-btn" onClick={startPreorder}>
-          PRE-ORDER OUTFIT <ArrowRight size={20} />
+          PRE-ORDER BOX <ArrowRight size={20} />
         </button>
+      </section>
+
+      <section className="reviews-preview store-reviews" id="reviews">
+        {REVIEWS.map(review => (
+          <article key={review}>
+            <div>{[1, 2, 3, 4, 5].map(star => <Star key={star} size={14} fill="currentColor" />)}</div>
+            <p>{review}</p>
+            <b>Verified preorder signal</b>
+          </article>
+        ))}
       </section>
 
       <Faq />
@@ -190,7 +232,7 @@ export function HomeSecondary() {
           <small>PRE-ORDER</small>
           <b>{format(PRODUCT.price)}</b>
         </div>
-        <button onClick={startPreorder}>PRE-ORDER OUTFIT <ArrowRight size={17} /></button>
+        <button onClick={startPreorder}>PRE-ORDER BOX <ArrowRight size={17} /></button>
       </div>
     </main>
   );

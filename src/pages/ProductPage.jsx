@@ -1,9 +1,9 @@
-import {ArrowRight, Check, PackageCheck, ShieldCheck} from 'lucide-react';
+import {ArrowRight, Check, PackageCheck, ShieldCheck, Star} from 'lucide-react';
 import {useRef, useState} from 'react';
 import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
 import {ProductArt} from '../components/ProductArt';
-import {BOX_ITEMS, PRODUCT} from '../data/catalog';
+import {BOX_ITEMS, PRODUCT, REVIEWS} from '../data/catalog';
 import {useStore} from '../context/StoreContext';
 import {format} from '../lib/format';
 import {useStickyReveal} from '../hooks/useStickyReveal';
@@ -65,8 +65,14 @@ export function ProductPage() {
             <p className="preorder-label">PRE-ORDER PRICE</p>
             <b className="preorder-main-price">{format(PRODUCT.price)}</b>
           </div>
-          <button className="secondary-preorder-btn" onClick={startPreorder}>PRE-ORDER OUTFIT <ArrowRight size={20} /></button>
+          <button className="secondary-preorder-btn" onClick={startPreorder}>PRE-ORDER BOX <ArrowRight size={20} /></button>
         </div>
+      </section>
+
+      <section className="store-trust-band product-trust-band" aria-label="Purchase confidence">
+        <article><ShieldCheck /><b>Secure payment</b><p>Payment is created and verified through server APIs, with Razorpay handling checkout.</p></article>
+        <article><PackageCheck /><b>Packed for collectors</b><p>The order is prepared as a display-ready drop with protective packing and care guidance.</p></article>
+        <article><Check /><b>Clear policy links</b><p>Shipping, returns, cancellation, payment, and contact details remain available before checkout.</p></article>
       </section>
 
       <BoxGallery
@@ -76,9 +82,19 @@ export function ProductPage() {
       />
 
       <section className="product-detail-band">
-        <article><span>01</span><b>Square-first product visuals</b><p>Every image block is locked to a clean 1:1 ratio for premium mobile and desktop browsing.</p></article>
-        <article><span>02</span><b>Smooth conversion flow</b><p>Pre-order opens the half cart drawer first, so the buyer reviews quantity before payment.</p></article>
-        <article><span>03</span><b>Secure Razorpay checkout</b><p>The frontend never stores the secret key; payment orders are created and verified through server APIs.</p></article>
+        <article><span>01</span><b>Square-first product visuals</b><p>Every image block is locked to a clean 1:1 ratio for confident mobile and desktop browsing.</p></article>
+        <article><span>02</span><b>Review before payment</b><p>Pre-order opens the cart drawer first, so the buyer reviews quantity, subtotal, and shipping before checkout.</p></article>
+        <article><span>03</span><b>Verified Razorpay checkout</b><p>The frontend never stores the secret key; payment orders are created and verified through server APIs.</p></article>
+      </section>
+
+      <section className="reviews-preview store-reviews product-reviews" id="reviews">
+        {REVIEWS.map(review => (
+          <article key={review}>
+            <div>{[1, 2, 3, 4, 5].map(star => <Star key={star} size={14} fill="currentColor" />)}</div>
+            <p>{review}</p>
+            <b>Verified preorder signal</b>
+          </article>
+        ))}
       </section>
 
       <Faq />
@@ -88,7 +104,7 @@ export function ProductPage() {
           <small>PRE-ORDER</small>
           <b>{format(PRODUCT.price)}</b>
         </div>
-        <button onClick={startPreorder}>PRE-ORDER OUTFIT <ArrowRight size={17} /></button>
+        <button onClick={startPreorder}>PRE-ORDER BOX <ArrowRight size={17} /></button>
       </div>
     </main>
   );

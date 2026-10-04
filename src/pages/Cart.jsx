@@ -8,7 +8,7 @@ import {ProductArt} from '../components/ProductArt';
 export function Cart() {
   const {cart, setQty, subtotal} = useStore();
   const qty = cart[PRODUCT.id] || 0;
-  const shipping = subtotal >= 4999 || subtotal === 0 ? 0 : 199;
+  const shipping = subtotal >= PRODUCT.price || subtotal === 0 ? 0 : 199;
 
   if (!qty) {
     return (

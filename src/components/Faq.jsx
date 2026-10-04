@@ -1,18 +1,21 @@
 import {ChevronDown} from 'lucide-react';
 import {useState} from 'react';
+import {PRODUCT, SITE} from '../data/catalog';
+import {format} from '../lib/format';
 
 const questions = [
-  ['Is this a pre-order?', 'Yes. This product is presented as a limited pre-order drop priced at ₹4,999.'],
-  ['What is included in the product gallery?', 'The gallery shows the full visual set included with this drop, with each frame paired to its own product story.'],
-  ['Can I use the gallery on mobile?', 'Yes. The main product gallery and the story section support touch swiping, large tap targets and horizontal thumbnail scrolling.'],
-  ['When will pre-orders ship?', 'Pre-order dispatch updates can be shared after order confirmation. Add your final dispatch timeline before launching live payments.']
+  ['Is this a pre-order?', `Yes. ${PRODUCT.name} is presented as a limited pre-order drop priced at ${format(PRODUCT.price)}.`],
+  ['What is included in the box?', 'The gallery shows the five collector items included with the drop, with each frame paired to its own product detail.'],
+  ['Is payment secure?', 'Yes. Checkout is handled by Razorpay, while order creation and payment verification happen through server APIs.'],
+  ['When will pre-orders ship?', 'Dispatch and tracking updates are shared through the email and phone number entered at checkout after the preorder moves into fulfilment.'],
+  ['How do I get support?', `Use the footer contact links or email ${SITE.supportEmail}. Please include your payment ID for faster order lookup.`]
 ];
 
 export function Faq() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="faq preorder-faq">
+    <section className="faq preorder-faq" id="faq">
       <div>
         <p className="eyebrow">FAQ</p>
         <h2>Before you pre-order.</h2>

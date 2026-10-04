@@ -21,7 +21,7 @@ function RouteView() {
   if (route === PRODUCT_PATH || route.startsWith('/product/')) return <ProductPage />;
   if (route === '/cart') return <Cart />;
   if (route === '/checkout') return <Checkout />;
-  if (['/shipping', '/returns', '/privacy', '/contact'].includes(route)) return <InfoPage type={route.slice(1)} />;
+  if (['/shipping', '/returns', '/privacy', '/contact', '/terms', '/payment', '/order-status', '/cancellation', '/warranty'].includes(route)) return <InfoPage type={route.slice(1)} />;
 
   return <ProductPage />;
 }

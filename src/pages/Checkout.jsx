@@ -1,6 +1,6 @@
 import {ArrowRight, CheckCircle, Loader2} from 'lucide-react';
 import {useMemo, useState} from 'react';
-import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
+import {PRODUCT, PRODUCT_PATH, SITE} from '../data/catalog';
 import {useStore} from '../context/StoreContext';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
@@ -50,7 +50,7 @@ export function Checkout() {
     }
 
     if (!RAZORPAY_KEY_ID) {
-      setError('Missing VITE_RAZORPAY_KEY_ID. Add your Razorpay key in environment variables.');
+      setError(`Payment checkout is not configured yet. Please contact ${SITE.supportEmail} for help.`);
       return;
     }
 
@@ -67,7 +67,7 @@ export function Checkout() {
           key: order.publicKey || RAZORPAY_KEY_ID,
           amount: order.amount,
           currency: order.currency || 'INR',
-          name: 'D&D STORE',
+          name: SITE.name,
           description: `${PRODUCT.name} Pre-Order`,
           order_id: order.orderId,
           prefill: {
@@ -146,12 +146,17 @@ export function Checkout() {
           <button className="pay-now-btn" type="submit" disabled={loading || !canPay || !qty}>
             {loading ? <><Loader2 className="spin" size={19} /> Processing...</> : <>PAY {format(total)} WITH RAZORPAY <ArrowRight size={19} /></>}
           </button>
-          <small>Your Razorpay secret stays on the server API. The browser only receives a short-lived order ID and public key.</small>
+          <small>Payments are processed by Razorpay. Card, UPI, and netbanking details are handled by the payment provider, not stored by this storefront.</small>
+          <ul className="checkout-assurance">
+            <li>Order total reviewed before payment</li>
+            <li>Payment signature verified after checkout</li>
+            <li>Support available at {SITE.supportEmail}</li>
+          </ul>
         </form>
 
         <aside className="summary-card checkout-summary-card">
           <p className="eyebrow">Order total</p>
-          <div><span>{PRODUCT.shortName} × {qty}</span><b>{format(subtotal)}</b></div>
+          <div><span>{PRODUCT.shortName} x {qty}</span><b>{format(subtotal)}</b></div>
           <div><span>Shipping</span><b>{shipping ? format(shipping) : 'FREE'}</b></div>
           <div className="total"><span>Total</span><b>{format(total)}</b></div>
           {!qty && <button onClick={() => go(PRODUCT_PATH)}>Add pre-order first</button>}

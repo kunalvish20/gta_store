@@ -43,19 +43,19 @@ export function Home() {
       </section>
 
       <section className="ticker">
-        <div>{['D&D STORE', 'ONE BOX', 'FIVE ITEMS', 'LIMITED DROP', 'FAST CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
+        <div>{['GTA STORE', 'ONE BOX', 'FIVE ITEMS', 'LIMITED DROP', 'SECURE CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
       </section>
 
       <section className="offer-section">
         <div className="section-title">
-          <p className="eyebrow">High CRO Flow</p>
-          <h2>One page. One offer. One action.</h2>
+          <p className="eyebrow">Trusted preorder flow</p>
+          <h2>One box. Clear policies. Secure checkout.</h2>
         </div>
         <div className="offer-grid">
           {[
-            ['Clear product', 'Only one product across the full website, so shoppers never get lost.'],
-            ['Visual proof', 'Large swipeable image card shows every item inside the box.'],
-            ['Always-ready CTA', 'Sticky add-to-cart keeps purchase action visible on mobile.']
+            ['Clear product', 'Only one product across the full website, so shoppers always know what they are ordering.'],
+            ['Visual proof', 'Large swipeable image cards show every item inside the box.'],
+            ['Support ready', 'Footer policy, contact, payment, and delivery links are available across the store.']
           ].map(([title, copy]) => (
             <article key={title}>
               <b>{title}</b>
@@ -78,8 +78,8 @@ export function Home() {
       </section>
 
       <section className="trust-band">
-        <div><Truck /><b>Fast dispatch</b><span>Ships in 1-2 business days.</span></div>
-        <div><ShieldCheck /><b>Protected packing</b><span>Made for collector-safe delivery.</span></div>
+        <div><Truck /><b>Delivery updates</b><span>Tracking details are shared after dispatch.</span></div>
+        <div><ShieldCheck /><b>Secure checkout</b><span>Payment is handled by Razorpay.</span></div>
         <div><Star /><b>{PRODUCT.rating}/5 rating</b><span>{PRODUCT.reviews} buyer reviews.</span></div>
       </section>
 

@@ -1,5 +1,14 @@
+export const SITE = {
+  name: 'GTA Store',
+  shortName: 'GTA',
+  origin: 'https://gta-store.example.com',
+  supportEmail: 'support@gta-store.example.com',
+  supportPhone: '+91 98765 43210',
+  supportHours: 'Mon-Sat, 10 AM-7 PM IST'
+};
+
 export const PRODUCT = {
-  id: 'dd-collector-box',
+  id: 'gta-collector-box',
   name: 'GTA VI Collector Box',
   shortName: 'Collector Box',
   category: '5 Item Collector Drop',
@@ -11,10 +20,10 @@ export const PRODUCT = {
   description:
     'A premium pre-order collector drop built around black surfaces, neon nights and Vice-inspired energy.',
   highlights: [
-    'Only product in the store',
-    'Five display-ready items inside',
+    'Five display-ready collector items',
+    'Secure Razorpay checkout',
     'Protective gift-ready packing',
-    'Fast cart and checkout flow'
+    'Tracked delivery updates after dispatch'
   ]
 };
 
@@ -51,9 +60,9 @@ export const BOX_ITEMS = [
 ];
 
 export const REVIEWS = [
-  'The box looks premium straight away. The five items make it feel complete.',
-  'Checkout was clear and the sticky cart button made buying easy on mobile.',
-  'The GTA-style colors and product images made it feel like a real drop.'
+  'The box presentation feels premium and the included items make the drop feel complete.',
+  'Checkout was clear, payment felt safe, and the order summary was easy to review.',
+  'The product images, packaging details, and support links made the store feel reliable.'
 ];
 
 export const HERO_PRODUCT = PRODUCT;
