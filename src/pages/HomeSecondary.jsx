@@ -1,4 +1,4 @@
-import {ArrowRight, BadgeCheck, Check, Lock, PackageCheck, ShieldCheck, Sparkles, Star, Truck} from 'lucide-react';
+import {ArrowRight, BadgeCheck, Check, Lock, Star, Truck} from 'lucide-react';
 import {useEffect, useRef} from 'react';
 import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
@@ -152,7 +152,13 @@ export function HomeSecondary() {
         </div>
       </section>
 
-      <section className="store-trust-band" aria-label="Trusted store details">
+      <BoxGallery
+        eyebrow="THE DROP, FRAME BY FRAME"
+        title="Slide the product. Watch the story change."
+        className="secondary-story"
+      />
+
+      <section className="store-trust-band secondary-quality" aria-label="Trusted store details">
         <article>
           <Lock />
           <b>Verified checkout</b>
@@ -168,36 +174,6 @@ export function HomeSecondary() {
           <b>Customer support</b>
           <p>Support links, policy pages, and contact details stay visible in the footer across the whole store.</p>
         </article>
-      </section>
-
-      <BoxGallery
-        eyebrow="THE DROP, FRAME BY FRAME"
-        title="Slide the product. Watch the story change."
-        className="secondary-story"
-      />
-
-      <section className="secondary-quality">
-        <div className="secondary-section-head">
-          <p className="secondary-kicker">BUILT TO FEEL PREMIUM</p>
-          <h2>Every detail pushes the box into focus.</h2>
-        </div>
-        <div className="secondary-quality-grid">
-          <article>
-            <Sparkles />
-            <b>Clear product presentation</b>
-            <p>Large square visuals, named gallery items, and consistent pricing keep attention on the exact product being ordered.</p>
-          </article>
-          <article>
-            <ShieldCheck />
-            <b>Trust-first buying flow</b>
-            <p>The cart, policy pages, footer, and checkout copy all explain what happens before payment and after order confirmation.</p>
-          </article>
-          <article>
-            <PackageCheck />
-            <b>Mobile-first performance</b>
-            <p>Priority images, lazy galleries, reduced loader timing, and touch-friendly controls keep browsing quick on smaller screens.</p>
-          </article>
-        </div>
       </section>
 
       <section className="secondary-final-cta">
