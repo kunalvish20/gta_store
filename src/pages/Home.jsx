@@ -1,5 +1,5 @@
 import {ArrowRight, Check, ShieldCheck, ShoppingBag, Star, Truck} from 'lucide-react';
-import {BOX_ITEMS, PRODUCT, PRODUCT_PATH, REVIEWS} from '../data/catalog';
+import {BOX_ITEMS, PRODUCT, PRODUCT_PATH, REVIEWS, SITE} from '../data/catalog';
 import {useStore} from '../context/StoreContext';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
@@ -43,7 +43,7 @@ export function Home() {
       </section>
 
       <section className="ticker">
-        <div>{['GTA STORE', 'ONE BOX', 'FIVE ITEMS', 'LIMITED DROP', 'SECURE CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
+        <div>{[SITE.name.toUpperCase(), 'ONE BOX', 'FIVE ITEMS', 'LIMITED DROP', 'SECURE CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
       </section>
 
       <section className="offer-section">

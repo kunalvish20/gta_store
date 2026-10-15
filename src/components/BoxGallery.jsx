@@ -35,6 +35,7 @@ export function BoxGallery({
           className="gallery-card dynamic-gallery-card"
           onTouchStart={event => { touchStart.current = event.touches[0].clientX; }}
           onTouchEnd={onTouchEnd}
+          onTouchCancel={() => { touchStart.current = null; }}
         >
           <div className="dynamic-slide" key={item.src}>
             <ProductArt item={item} large priority={active === 0} />
@@ -47,7 +48,7 @@ export function BoxGallery({
           </div>
         </div>
 
-        <div className="box-copy dynamic-copy" key={`${item.name}-copy`}>
+        <div className="box-copy dynamic-copy">
           <p className="dynamic-index">FRAME 0{active + 1}</p>
           <h3>{item.name}</h3>
           <p>{item.detail}</p>
@@ -61,6 +62,7 @@ export function BoxGallery({
                 className={active === index ? 'active' : ''}
                 onClick={() => setActive(index)}
                 aria-label={`Show ${boxItem.name}`}
+                aria-pressed={active === index}
               >
                 <span>0{index + 1}</span>
                 <b>{boxItem.name}</b>

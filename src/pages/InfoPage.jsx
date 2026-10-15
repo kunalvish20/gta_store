@@ -17,7 +17,7 @@ const pages = {
   privacy: {
     eyebrow: 'Policy',
     title: 'Privacy Policy',
-    copy: 'GTA Store collects checkout details only to process pre-orders, payment verification, delivery support, and customer communication.',
+    copy: `${SITE.name} collects checkout details only to process pre-orders, payment verification, delivery support, and customer communication.`,
     bullets: ['Cart data stays in your browser', 'Payment is handled through Razorpay checkout', 'Customer details are used only for order and support workflows']
   },
   contact: {

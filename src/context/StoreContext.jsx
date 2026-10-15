@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useMemo, useState} from 'react';
 import {PRODUCTS} from '../data/catalog';
+import {addCartItem, normalizeCart, setCartItemQuantity} from '../lib/cart';
 
 const StoreContext = createContext(null);
 const CART_KEY = 'gta_store_cart';
@@ -16,14 +17,14 @@ const readJson = (key, fallback) => {
 
 const readCart = () => {
   const savedCart = readJson(CART_KEY, null);
-  if (savedCart) return savedCart;
+  if (savedCart !== null) return normalizeCart(savedCart);
 
   const legacyCart = readJson(LEGACY_CART_KEY, {});
-  if (legacyCart[LEGACY_PRODUCT_ID]) {
-    return {[PRODUCTS[0].id]: legacyCart[LEGACY_PRODUCT_ID]};
+  if (legacyCart?.[LEGACY_PRODUCT_ID]) {
+    return normalizeCart({[PRODUCTS[0].id]: legacyCart[LEGACY_PRODUCT_ID]});
   }
 
-  return legacyCart;
+  return normalizeCart(legacyCart);
 };
 
 export function StoreProvider({children}) {
@@ -36,21 +37,16 @@ export function StoreProvider({children}) {
 
   const value = useMemo(() => {
     const add = (id, qty = 1) => {
-      setCart(current => ({...current, [id]: (current[id] || 0) + qty}));
+      setCart(current => addCartItem(current, id, qty));
     };
 
     const preorder = (id, qty = 1) => {
-      setCart(current => ({...current, [id]: (current[id] || 0) + qty}));
+      add(id, qty);
       setCartDrawerOpen(true);
     };
 
     const setQty = (id, qty) => {
-      setCart(current => {
-        const next = {...current};
-        if (qty <= 0) delete next[id];
-        else next[id] = qty;
-        return next;
-      });
+      setCart(current => setCartItemQuantity(current, id, qty));
     };
 
     const clearCart = () => setCart({});

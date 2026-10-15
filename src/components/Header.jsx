@@ -1,6 +1,7 @@
 import {Menu, ShoppingBag, X} from 'lucide-react';
 import {useState} from 'react';
-import {PRODUCT, PRODUCT_PATH, SITE} from '../data/catalog';
+import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
+import {BrandLogo} from './BrandLogo';
 import {useStore} from '../context/StoreContext';
 import {go, useRoute} from '../hooks/useRoute';
 
@@ -27,9 +28,7 @@ export function Header() {
   return (
     <>
       <header className="site-header">
-        <button className="brand" onClick={() => go('/')}>
-          {SITE.shortName} <span>STORE</span>
-        </button>
+        <BrandLogo />
         <nav>
           {links.slice(0, 3).map(([label, path]) => (
             <button key={label} onClick={() => navigate(path)}>{label}</button>

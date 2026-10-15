@@ -1,5 +1,6 @@
 import {CreditCard, Headphones, PackageCheck, ShieldCheck} from 'lucide-react';
 import {PRODUCT_PATH, SITE} from '../data/catalog';
+import {BrandLogo} from './BrandLogo';
 
 const footerGroups = [
   {
@@ -44,7 +45,7 @@ export function Footer() {
   return (
     <footer>
       <div className="footer-brand">
-        <button className="brand">{SITE.shortName} <span>STORE</span></button>
+        <BrandLogo />
         <p>Independent collector storefront for the GTA VI Collector Box, with secure payment, transparent policies, and support before and after checkout.</p>
         <div className="footer-contact">
           <span><Headphones size={16} /> {SITE.supportEmail}</span>

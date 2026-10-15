@@ -2,7 +2,7 @@ import {ArrowRight, BadgeCheck, Check, Lock, PackageCheck, ShieldCheck, Sparkles
 import {useEffect, useRef} from 'react';
 import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
-import {PRODUCT, PRODUCT_PATH, REVIEWS} from '../data/catalog';
+import {PRODUCT, PRODUCT_PATH, REVIEWS, SITE} from '../data/catalog';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
 import {useStore} from '../context/StoreContext';
@@ -98,8 +98,8 @@ function InteractiveDropBox({onOpenProduct}) {
         }}
       >
         <div className="secondary-box-face secondary-box-front">
-          <span className="box-kicker">GTA // 001</span>
-          <strong>VICE<br />PACK</strong>
+          <span className="box-kicker">GTA VI // 001</span>
+          <strong>GTA VI<br />DROP</strong>
           <div className="box-line" />
           <small>PRE-ORDER EDITION</small>
         </div>
@@ -108,8 +108,8 @@ function InteractiveDropBox({onOpenProduct}) {
           <b>{format(PRODUCT.price)}</b>
           <small>LIMITED PRE-ORDER</small>
         </div>
-        <div className="secondary-box-face secondary-box-right"><span>VICE // 001</span></div>
-        <div className="secondary-box-face secondary-box-left"><span>GTA STORE</span></div>
+        <div className="secondary-box-face secondary-box-right"><span>GTA VI // 001</span></div>
+        <div className="secondary-box-face secondary-box-left"><span>{SITE.name.toUpperCase()}</span></div>
         <div className="secondary-box-face secondary-box-top"><span>PRE-ORDER</span></div>
         <div className="secondary-box-face secondary-box-bottom"><span>2026 DROP</span></div>
       </div>
@@ -134,8 +134,8 @@ export function HomeSecondary() {
 
         <div className="secondary-hero-copy">
           <p className="secondary-kicker">LIMITED // PRE-ORDER DROP</p>
-          <h1>VICE READY<br /><em>DROP BOX.</em></h1>
-          <p className="secondary-subcopy">A black collector box staged under neon magenta motion, backed by secure checkout, clear policies, and careful preorder support.</p>
+          <h1>GTA VI<br /><em>DROP BOX.</em></h1>
+          <p className="secondary-subcopy">Golden-hour energy. After-dark glamour. A collector drop inspired by the world of GTA VI, with five display-ready pieces inside.</p>
         </div>
 
         <InteractiveDropBox onOpenProduct={openProduct} />
@@ -148,7 +148,7 @@ export function HomeSecondary() {
           <button className="secondary-preorder-btn" onClick={startPreorder}>
             PRE-ORDER BOX <ArrowRight size={20} />
           </button>
-          <p>Tap pre-order to open the cart drawer, then complete secure Razorpay checkout.</p>
+          <p>Secure Razorpay checkout. Delivery updates from pre-order to dispatch.</p>
         </div>
       </section>
 

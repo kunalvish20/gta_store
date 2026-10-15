@@ -1,6 +1,6 @@
 export const SITE = {
-  name: 'GTA Store',
-  shortName: 'GTA',
+  name: 'DND Store',
+  shortName: 'DND',
   origin: 'https://gta-store.example.com',
   supportEmail: 'support@gta-store.example.com',
   supportPhone: '+91 98765 43210',
@@ -28,6 +28,7 @@ export const PRODUCT = {
 };
 
 export const PRODUCTS = [PRODUCT];
+export const MAX_ORDER_QUANTITY = 10;
 export const PRODUCT_PATH = `/product/${PRODUCT.id}`;
 
 export const BOX_ITEMS = [
