@@ -1012,10 +1012,12 @@ footer small { grid-column: 1 / -1; color: #817681; }
 .secondary-hero-copy {
   z-index: 2;
   max-width: 380px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(12, 9, 28, .45);
 }
 
-.secondary-hero .secondary-kicker {
-  color: var(--hero-gold);
+.secondary-hero-copy .secondary-kicker {
+  color: #fff;
 }
 
 .secondary-hero-copy h1 {
@@ -1027,19 +1029,15 @@ footer small { grid-column: 1 / -1; color: #817681; }
 }
 
 .secondary-hero-copy h1 em {
-  color: var(--hero-peach);
-  background: linear-gradient(160deg, var(--hero-ivory), var(--hero-gold) 28%, var(--hero-coral) 67%, var(--hero-lilac));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #fff;
   font-style: normal;
-  text-shadow: 0 8px 36px rgba(255, 183, 160, .16);
 }
 
 .secondary-subcopy {
   margin: 0;
-  color: #eee0ef;
+  color: #fff;
   font-size: 15px;
+  font-weight: 500;
   line-height: 1.7;
 }
 
