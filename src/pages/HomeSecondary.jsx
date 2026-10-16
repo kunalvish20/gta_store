@@ -13,12 +13,15 @@ function InteractiveDropBox({onOpenProduct}) {
   const interaction = useRef({
     yaw: -18,
     pitch: -8,
+    direction: 1,
     dragging: false,
     moved: false,
     pointerId: null,
     x: 0,
     y: 0,
-    lastTime: 0
+    lastTime: 0,
+    startX: 0,
+    startY: 0
   });
 
   useEffect(() => {
@@ -28,13 +31,18 @@ function InteractiveDropBox({onOpenProduct}) {
     let frame = 0;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    el.style.transform = `rotateX(${interaction.current.pitch}deg) rotateY(${interaction.current.yaw}deg)`;
+    if (reduceMotion) return undefined;
+
     const render = time => {
       const state = interaction.current;
       const dt = state.lastTime ? Math.min(time - state.lastTime, 34) : 16;
       state.lastTime = time;
 
-      if (!state.dragging && !reduceMotion) {
-        state.yaw += dt * 0.0125;
+      if (!state.dragging) {
+        state.yaw += dt * 0.004 * state.direction;
+        if (state.yaw >= -4) state.direction = -1;
+        if (state.yaw <= -32) state.direction = 1;
       }
 
       el.style.transform = `rotateX(${state.pitch}deg) rotateY(${state.yaw}deg)`;
@@ -46,12 +54,15 @@ function InteractiveDropBox({onOpenProduct}) {
   }, []);
 
   const onPointerDown = event => {
+    if (!event.isPrimary || event.button !== 0) return;
     const state = interaction.current;
     state.dragging = true;
     state.moved = false;
     state.pointerId = event.pointerId;
     state.x = event.clientX;
     state.y = event.clientY;
+    state.startX = event.clientX;
+    state.startY = event.clientY;
     event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
@@ -61,17 +72,20 @@ function InteractiveDropBox({onOpenProduct}) {
 
     const dx = event.clientX - state.x;
     const dy = event.clientY - state.y;
-    if (Math.abs(dx) + Math.abs(dy) > 6) state.moved = true;
+    if (Math.hypot(event.clientX - state.startX, event.clientY - state.startY) > 6) state.moved = true;
     state.x = event.clientX;
     state.y = event.clientY;
     state.yaw += dx * 0.42;
     state.pitch = Math.max(-22, Math.min(18, state.pitch - dy * 0.22));
+    if (boxRef.current) {
+      boxRef.current.style.transform = `rotateX(${state.pitch}deg) rotateY(${state.yaw}deg)`;
+    }
   };
 
-  const stopDrag = event => {
+  const stopDrag = (event, cancelled = false) => {
     const state = interaction.current;
     if (state.pointerId !== event.pointerId) return;
-    const shouldOpenProduct = !state.moved;
+    const shouldOpenProduct = !cancelled && !state.moved;
     state.dragging = false;
     state.pointerId = null;
     event.currentTarget.releasePointerCapture?.(event.pointerId);
@@ -79,17 +93,21 @@ function InteractiveDropBox({onOpenProduct}) {
   };
 
   return (
-    <div className="secondary-box-stage" aria-label="Tap to open product page. Drag to rotate pre-order box.">
-      <div className="secondary-box-shadow" />
+    <div className="secondary-box-stage">
+      <div className="secondary-box-shadow" aria-hidden="true" />
       <div
         className="secondary-box"
         role="button"
+        aria-label="View the GTA VI Collector Box. Drag horizontally to rotate."
         tabIndex={0}
         ref={boxRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={stopDrag}
-        onPointerCancel={stopDrag}
+        onPointerCancel={event => stopDrag(event, true)}
+        onClick={event => {
+          if (event.detail === 0) onOpenProduct?.();
+        }}
         onKeyDown={event => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -126,15 +144,31 @@ export function HomeSecondary() {
 
   return (
     <main className="secondary-page">
-      <section className="secondary-hero">
+      <section className="secondary-hero" aria-labelledby="collector-hero-title">
+        <div className="secondary-atmosphere" aria-hidden="true" />
         <div className="secondary-rays" aria-hidden="true" />
         <div className="secondary-rays secondary-rays-soft" aria-hidden="true" />
         <div className="secondary-glow" aria-hidden="true" />
         <div className="secondary-core-glow" aria-hidden="true" />
+        <div className="secondary-particles" aria-hidden="true">
+          {Array.from({length: 34}, (_, index) => (
+            <span
+              key={index}
+              className={index % 6 === 0 ? 'is-sparkle' : ''}
+              style={{
+                '--particle-x': `${(index * 37 + 7) % 100}%`,
+                '--particle-y': `${(index * 23 + 9) % 100}%`,
+                '--particle-size': `${index % 3 + 2}px`,
+                '--particle-delay': `${-(index % 9)}s`,
+                '--particle-duration': `${6 + index % 5}s`
+              }}
+            />
+          ))}
+        </div>
 
         <div className="secondary-hero-copy">
           <p className="secondary-kicker">LIMITED // PRE-ORDER DROP</p>
-          <h1>GTA VI<br /><em>DROP BOX.</em></h1>
+          <h1 id="collector-hero-title">GTA VI<br /><em>DROP BOX.</em></h1>
           <p className="secondary-subcopy">Golden-hour energy. After-dark glamour. A collector drop inspired by the world of GTA VI, with five display-ready pieces inside.</p>
         </div>
 

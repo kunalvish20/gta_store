@@ -1880,10 +1880,10 @@ body.drawer-lock { overflow: hidden; }
   background: radial-gradient(circle, rgba(255, 183, 160, .32), rgba(197, 183, 255, .14) 36%, transparent 73%);
 }
 
-.secondary-box-stage { min-height: clamp(540px, 50vw, 680px); }
+.secondary-box-stage { min-height: clamp(560px, 50vw, 720px); }
 
 .secondary-box {
-  --box-w: clamp(390px, 38vw, 540px);
+  --box-w: clamp(420px, 40vw, 600px);
   --box-h: var(--box-w);
   --box-d: clamp(92px, 8vw, 132px);
 }
@@ -2220,9 +2220,9 @@ body.drawer-lock { overflow: hidden; }
 }
 
 @media (max-width: 820px) {
-  .secondary-box-stage { min-height: 410px; }
+  .secondary-box-stage { min-height: 580px; }
   .secondary-box {
-    --box-w: min(82vw, 430px);
+    --box-w: min(82vw, 480px);
     --box-h: var(--box-w);
     --box-d: min(24vw, 112px);
   }
@@ -2232,9 +2232,9 @@ body.drawer-lock { overflow: hidden; }
 
 @media (max-width: 640px) {
   .secondary-core-glow { width: 86vw; min-width: 0; filter: blur(16px); }
-  .secondary-box-stage { min-height: 410px; }
+  .secondary-box-stage { min-height: 450px; }
   .secondary-box {
-    --box-w: min(88vw, 330px);
+    --box-w: min(88vw, 360px);
     --box-h: var(--box-w);
     --box-d: min(26vw, 88px);
   }
@@ -2292,8 +2292,9 @@ body.drawer-lock { overflow: hidden; }
 }
 
 @media (max-width: 390px) {
+  .secondary-box-stage { min-height: 420px; }
   .secondary-box {
-    --box-w: min(88vw, 292px);
+    --box-w: min(88vw, 310px);
     --box-h: var(--box-w);
     --box-d: 78px;
   }
