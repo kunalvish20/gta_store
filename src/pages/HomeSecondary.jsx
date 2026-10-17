@@ -169,8 +169,7 @@ export function HomeSecondary() {
         <div className="secondary-hero-copy">
           <p className="secondary-kicker">LIMITED // PRE-ORDER DROP</p>
           <h1 id="collector-hero-title">GTA VI<br /><em>DROP BOX.</em></h1>
-          <p className="secondary-subcopy">Golden-hour energy. After-dark glamour. A collector drop inspired by the world of GTA VI, with five display-ready pieces inside.</p>
-        </div>
+          </div>
 
         <InteractiveDropBox onOpenProduct={openProduct} />
 
@@ -184,6 +183,30 @@ export function HomeSecondary() {
           </button>
           <p>Secure Razorpay checkout. Delivery updates from pre-order to dispatch.</p>
         </div>
+      </section>
+
+      <section className="secondary-final-cta" aria-labelledby="collector-box-title">
+        <div className="secondary-final-copy">
+          <p className="secondary-kicker">ONE PRODUCT // ONE DECISION</p>
+          <h2 id="collector-box-title">{PRODUCT.name}</h2>
+          <div className="secondary-final-proof">
+            <span><Check size={15} /> One premium drop</span>
+            <span><Check size={15} /> Smooth product gallery</span>
+            <span><Check size={15} /> Pre-order at {format(PRODUCT.price)}</span>
+          </div>
+        </div>
+        <img
+          className="secondary-final-image"
+          src="/assets/lamp_gta-VI.png"
+          alt="GTA VI neon display lamp"
+          width={1122}
+          height={1402}
+          loading="lazy"
+          decoding="async"
+        />
+        <button className="secondary-preorder-btn" onClick={startPreorder}>
+          PRE-ORDER BOX <ArrowRight size={20} />
+        </button>
       </section>
 
       <BoxGallery
@@ -208,21 +231,6 @@ export function HomeSecondary() {
           <b>Customer support</b>
           <p>Support links, policy pages, and contact details stay visible in the footer across the whole store.</p>
         </article>
-      </section>
-
-      <section className="secondary-final-cta">
-        <div>
-          <p className="secondary-kicker">ONE PRODUCT // ONE DECISION</p>
-          <h2>{PRODUCT.name}</h2>
-          <div className="secondary-final-proof">
-            <span><Check size={15} /> One premium drop</span>
-            <span><Check size={15} /> Smooth product gallery</span>
-            <span><Check size={15} /> Pre-order at {format(PRODUCT.price)}</span>
-          </div>
-        </div>
-        <button className="secondary-preorder-btn" onClick={startPreorder}>
-          PRE-ORDER BOX <ArrowRight size={20} />
-        </button>
       </section>
 
       <section className="reviews-preview store-reviews" id="reviews">
