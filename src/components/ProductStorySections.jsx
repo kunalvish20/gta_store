@@ -45,12 +45,12 @@ export function ProductStorySections() {
           <p className="collector-story-eyebrow">04 / THE FINISHING DETAILS</p>
           <h2 id="collector-details-title">From the first reveal to the final detail.</h2>
           <p className="collector-story-description">
-            The Vice City poster gives your wall or desk a full visual moment. Collector artwork and a logo card round out the box, with care details for your collection.
+            The Vice City poster gives your wall or desk a full visual moment. Its bold artwork brings the color and energy of the collector box into your space.
           </p>
           <ul className="collector-benefits">
             <li><Check size={18} aria-hidden="true" /><span>A poster insert for your wall or desk display.</span></li>
-            <li><Check size={18} aria-hidden="true" /><span>A collector logo card with care and collector details.</span></li>
-            <li><Check size={18} aria-hidden="true" /><span>Protective, gift-ready packing for the full box.</span></li>
+            <li><Check size={18} aria-hidden="true" /><span>Vice-inspired artwork that makes the display feel complete.</span></li>
+            <li><Check size={18} aria-hidden="true" /><span>Packed with the rest of your collection in one box.</span></li>
           </ul>
           <div className="collector-feature-note">
             <PackageCheck size={20} aria-hidden="true" />
@@ -68,6 +68,36 @@ export function ProductStorySections() {
             <span><b>Vice City poster</b><small>A full visual for your wall or desk</small></span>
           </figcaption>
         </figure>
+      </section>
+
+      <section className="collector-feature collector-feature-image-left collector-logo-feature" aria-labelledby="collector-logo-title">
+        <figure className="collector-feature-media">
+          <ProductArt item={BOX_ITEMS[4]} large />
+          <figcaption>
+            <Layers3 size={18} aria-hidden="true" />
+            <span><b>Collector logo card</b><small>The fifth piece in your box</small></span>
+          </figcaption>
+        </figure>
+
+        <div className="collector-feature-copy">
+          <p className="collector-story-eyebrow">05 / THE FINAL PIECE</p>
+          <h2 id="collector-logo-title">A finishing touch for your collection.</h2>
+          <p className="collector-story-description">
+            The collector logo card adds one more piece to the Vice City display. Place it beside the poster, lamp, and gaming collectible to tie the full box together.
+          </p>
+          <ul className="collector-benefits">
+            <li><Check size={18} aria-hidden="true" /><span>A bold logo piece for your desk or shelf.</span></li>
+            <li><Check size={18} aria-hidden="true" /><span>Easy to pair with the poster and collector artwork.</span></li>
+            <li><Check size={18} aria-hidden="true" /><span>Included with all four other collector items.</span></li>
+          </ul>
+          <div className="collector-feature-note">
+            <PackageCheck size={20} aria-hidden="true" />
+            <p><b>All five, together.</b><span>The complete collection comes in one box.</span></p>
+          </div>
+          <a className="collector-story-link" href="#inside-box" onClick={event => { event.preventDefault(); document.getElementById('inside-box')?.scrollIntoView({behavior: 'smooth'}); }}>
+            Explore all five items <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+        </div>
       </section>
     </div>
   );

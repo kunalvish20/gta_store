@@ -174,6 +174,18 @@
   object-fit: cover;
 }
 
+.preorder-product-page .collector-logo-feature .product-art {
+  background: #fff;
+}
+
+.preorder-product-page .collector-logo-feature .product-art img.contain {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+  transform: scale(1.25);
+}
+
 .preorder-product-page .collector-feature-media figcaption {
   position: absolute;
   inset: auto 0 0;
@@ -352,6 +364,10 @@
 
   .preorder-product-page .collector-feature-image-left .collector-feature-copy {
     grid-row: 1;
+  }
+
+  .preorder-product-page .collector-logo-feature .collector-feature-copy {
+    grid-row: auto;
   }
 
   .preorder-product-page .product-story-sections .collector-feature h2,
