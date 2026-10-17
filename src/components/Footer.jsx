@@ -8,7 +8,7 @@ const footerGroups = [
     links: [
       ['Product', `#${PRODUCT_PATH}`],
       ['Inside Box', `#${PRODUCT_PATH}?inside`],
-      ['Reviews', `#${PRODUCT_PATH}?reviews`],
+      ['Reviews', '#/'],
       ['Cart', '#/cart'],
       ['Checkout', '#/checkout']
     ]
@@ -68,7 +68,15 @@ export function Footer() {
         {footerGroups.map(group => (
           <section key={group.title}>
             <h3>{group.title}</h3>
-            {group.links.map(([label, href]) => <a key={label} href={href}>{label}</a>)}
+            {group.links.map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                onClick={label === 'Reviews' ? () => setTimeout(() => document.getElementById('reviews')?.scrollIntoView({behavior: 'smooth'}), 80) : undefined}
+              >
+                {label}
+              </a>
+            ))}
           </section>
         ))}
       </nav>

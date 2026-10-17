@@ -1,21 +1,46 @@
-import {ArrowRight, BadgeCheck, Check, Lock, Star, Truck} from 'lucide-react';
+import {ArrowRight, BadgeCheck, Check, Lock, Truck} from 'lucide-react';
 import {useEffect, useRef} from 'react';
 import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
-import {PRODUCT, PRODUCT_PATH, REVIEWS, SITE} from '../data/catalog';
+import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
 import {useStore} from '../context/StoreContext';
 import {useStickyReveal} from '../hooks/useStickyReveal';
+
+const TESTIMONIAL_PREVIEW = [
+  {
+    topic: 'THE BOX',
+    quote: 'I wanted to see exactly what came in the box before ordering. The gallery made it easy to look through every piece.',
+    name: 'Aarav M.',
+    initials: 'AM'
+  },
+  {
+    topic: 'THE CHECKOUT',
+    quote: 'The price and order summary were easy to find. I could check the quantity and delivery details before moving to payment.',
+    name: 'Riya S.',
+    initials: 'RS'
+  },
+  {
+    topic: 'THE DETAILS',
+    quote: 'The lamp and poster caught my eye first. Seeing how the five items fit together made the drop feel thoughtfully put together.',
+    name: 'Dev K.',
+    initials: 'DK'
+  }
+];
+
+function applyBoxRotation(element, {pitch, yaw}) {
+  element.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
+}
 
 function InteractiveDropBox({onOpenProduct}) {
   const boxRef = useRef(null);
   const interaction = useRef({
     yaw: -18,
     pitch: -8,
-    direction: 1,
     dragging: false,
     moved: false,
+    userControlled: false,
     pointerId: null,
     x: 0,
     y: 0,
@@ -31,21 +56,20 @@ function InteractiveDropBox({onOpenProduct}) {
     let frame = 0;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    el.style.transform = `rotateX(${interaction.current.pitch}deg) rotateY(${interaction.current.yaw}deg)`;
+    applyBoxRotation(el, interaction.current);
     if (reduceMotion) return undefined;
 
     const render = time => {
       const state = interaction.current;
+      if (state.userControlled) return;
       const dt = state.lastTime ? Math.min(time - state.lastTime, 34) : 16;
       state.lastTime = time;
 
       if (!state.dragging) {
-        state.yaw += dt * 0.004 * state.direction;
-        if (state.yaw >= -4) state.direction = -1;
-        if (state.yaw <= -32) state.direction = 1;
+        state.yaw = (state.yaw + dt * 0.015) % 360;
       }
 
-      el.style.transform = `rotateX(${state.pitch}deg) rotateY(${state.yaw}deg)`;
+      applyBoxRotation(el, state);
       frame = requestAnimationFrame(render);
     };
 
@@ -72,14 +96,14 @@ function InteractiveDropBox({onOpenProduct}) {
 
     const dx = event.clientX - state.x;
     const dy = event.clientY - state.y;
-    if (Math.hypot(event.clientX - state.startX, event.clientY - state.startY) > 6) state.moved = true;
+    if (!state.moved && Math.hypot(event.clientX - state.startX, event.clientY - state.startY) <= 6) return;
+    state.moved = true;
+    state.userControlled = true;
     state.x = event.clientX;
     state.y = event.clientY;
-    state.yaw += dx * 0.42;
-    state.pitch = Math.max(-22, Math.min(18, state.pitch - dy * 0.22));
-    if (boxRef.current) {
-      boxRef.current.style.transform = `rotateX(${state.pitch}deg) rotateY(${state.yaw}deg)`;
-    }
+    state.yaw += dx * 0.7;
+    state.pitch -= dy * 0.7;
+    applyBoxRotation(event.currentTarget, state);
   };
 
   const stopDrag = (event, cancelled = false) => {
@@ -88,7 +112,9 @@ function InteractiveDropBox({onOpenProduct}) {
     const shouldOpenProduct = !cancelled && !state.moved;
     state.dragging = false;
     state.pointerId = null;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
     if (shouldOpenProduct) onOpenProduct?.();
   };
 
@@ -98,13 +124,20 @@ function InteractiveDropBox({onOpenProduct}) {
       <div
         className="secondary-box"
         role="button"
-        aria-label="View the GTA VI Collector Box. Drag horizontally to rotate."
+        aria-label="Rotate the GTA VI Collector Box 360 degrees. Drag in any direction or use arrow keys. Press Enter to view the product."
         tabIndex={0}
         ref={boxRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={stopDrag}
         onPointerCancel={event => stopDrag(event, true)}
+        onLostPointerCapture={event => {
+          const state = interaction.current;
+          if (state.pointerId === event.pointerId) {
+            state.dragging = false;
+            state.pointerId = null;
+          }
+        }}
         onClick={event => {
           if (event.detail === 0) onOpenProduct?.();
         }}
@@ -112,26 +145,81 @@ function InteractiveDropBox({onOpenProduct}) {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             onOpenProduct?.();
+            return;
           }
+
+          const step = event.shiftKey ? 45 : 15;
+          const state = interaction.current;
+          if (event.key === 'ArrowLeft') state.yaw -= step;
+          else if (event.key === 'ArrowRight') state.yaw += step;
+          else if (event.key === 'ArrowUp') state.pitch += step;
+          else if (event.key === 'ArrowDown') state.pitch -= step;
+          else return;
+
+          event.preventDefault();
+          state.userControlled = true;
+          applyBoxRotation(event.currentTarget, state);
         }}
       >
         <div className="secondary-box-face secondary-box-front">
-          <span className="box-kicker">GTA VI // 001</span>
-          <strong>GTA VI<br />DROP</strong>
-          <div className="box-line" />
-          <small>PRE-ORDER EDITION</small>
+          <img
+            className="secondary-box-cover"
+            src="/assets/box%20front%20cover%20(1).png"
+            alt=""
+            width={3840}
+            height={3840}
+            decoding="async"
+            fetchPriority="high"
+            draggable={false}
+          />
         </div>
         <div className="secondary-box-face secondary-box-back">
-          <span>ONE DROP</span>
-          <b>{format(PRODUCT.price)}</b>
-          <small>LIMITED PRE-ORDER</small>
+          <img
+            className="secondary-box-cover"
+            src="/assets/box%20back%20cover.jpeg"
+            alt=""
+            width={4096}
+            height={4096}
+            decoding="async"
+            draggable={false}
+          />
         </div>
-        <div className="secondary-box-face secondary-box-right"><span>GTA VI // 001</span></div>
-        <div className="secondary-box-face secondary-box-left"><span>{SITE.name.toUpperCase()}</span></div>
-        <div className="secondary-box-face secondary-box-top"><span>PRE-ORDER</span></div>
+        <div className="secondary-box-face secondary-box-right">
+          <img
+            className="secondary-box-cover"
+            src="/assets/box%20right%20cover.jpg.jpeg"
+            alt=""
+            width={2363}
+            height={2363}
+            decoding="async"
+            draggable={false}
+          />
+        </div>
+        <div className="secondary-box-face secondary-box-left">
+          <img
+            className="secondary-box-cover"
+            src="/assets/box%20left%20cover.jpg.jpeg"
+            alt=""
+            width={2363}
+            height={2363}
+            decoding="async"
+            draggable={false}
+          />
+        </div>
+        <div className="secondary-box-face secondary-box-top">
+          <img
+            className="secondary-box-cover secondary-box-top-logo"
+            src="/assets/box%20top%20logo.webp"
+            alt=""
+            width={1920}
+            height={1357}
+            decoding="async"
+            draggable={false}
+          />
+        </div>
         <div className="secondary-box-face secondary-box-bottom"><span>2026 DROP</span></div>
       </div>
-      <div className="secondary-drag-hint">TAP TO VIEW / DRAG TO ROTATE</div>
+      <div className="secondary-drag-hint">DRAG 360° IN ANY DIRECTION / TAP TO VIEW</div>
     </div>
   );
 }
@@ -233,14 +321,32 @@ export function HomeSecondary() {
         </article>
       </section>
 
-      <section className="reviews-preview store-reviews" id="reviews">
-        {REVIEWS.map(review => (
-          <article key={review}>
-            <div>{[1, 2, 3, 4, 5].map(star => <Star key={star} size={14} fill="currentColor" />)}</div>
-            <p>{review}</p>
-            <b>Verified preorder signal</b>
-          </article>
-        ))}
+      <section className="secondary-testimonials" id="reviews" aria-labelledby="secondary-testimonials-title">
+        <div className="secondary-testimonials-heading">
+          <div>
+            <p className="secondary-kicker">TESTIMONIAL PREVIEW // THE DROP</p>
+            <h2 id="secondary-testimonials-title">THE DROP,<br /><em>IN THEIR WORDS.</em></h2>
+          </div>
+          <p>From the first look at the box to the final checkout step, the small details shape the whole experience.</p>
+        </div>
+
+        <div className="secondary-testimonials-grid">
+          {TESTIMONIAL_PREVIEW.map((review, index) => (
+            <article className="secondary-testimonial-card" key={review.topic}>
+              <div className="secondary-testimonial-topline">
+                <span>0{index + 1} / 03</span>
+                <span>{review.topic}</span>
+              </div>
+              <span className="secondary-testimonial-quote" aria-hidden="true">“</span>
+              <blockquote>{review.quote}</blockquote>
+              <div className="secondary-testimonial-footer">
+                <span className="secondary-testimonial-mark" aria-hidden="true">{review.initials}</span>
+                <span><strong>{review.name}</strong><small>Sample review</small></span>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="secondary-testimonials-note">Preview testimonials for layout. Replace with customer-submitted reviews before publishing.</p>
       </section>
 
       <Faq />

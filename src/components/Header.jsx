@@ -8,7 +8,7 @@ import {go, useRoute} from '../hooks/useRoute';
 const links = [
   ['Product', PRODUCT_PATH],
   ['Inside Box', `${PRODUCT_PATH}?inside`],
-  ['Reviews', `${PRODUCT_PATH}?reviews`],
+  ['Reviews', '/?reviews'],
   ['Cart', '/cart']
 ];
 

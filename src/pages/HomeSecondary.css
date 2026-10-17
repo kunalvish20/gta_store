@@ -115,12 +115,12 @@
   text-shadow: 0 1px 6px #32145199;
 }
 
-.secondary-hero .secondary-box-stage,
-.secondary-hero .secondary-box {
+.secondary-hero .secondary-box-stage {
   touch-action: pan-y;
 }
 
 .secondary-hero .secondary-box {
+  touch-action: none;
   --box-h: var(--box-w);
   --box-d: var(--box-w);
   scale: .7 .7 .7;
@@ -345,4 +345,45 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+.secondary-hero .secondary-box-front,
+.secondary-hero .secondary-box-back,
+.secondary-hero .secondary-box-right,
+.secondary-hero .secondary-box-left {
+  padding: 0;
+  background: #11101e;
+}
+
+.secondary-hero .secondary-box-right,
+.secondary-hero .secondary-box-left {
+  writing-mode: horizontal-tb;
+}
+
+.secondary-hero .secondary-box-front::before,
+.secondary-hero .secondary-box-back::before,
+.secondary-hero .secondary-box-right::before,
+.secondary-hero .secondary-box-left::before,
+.secondary-hero .secondary-box-top::before,
+.secondary-hero .secondary-box-front::after {
+  content: none;
+}
+
+.secondary-hero .secondary-box-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.secondary-hero .secondary-box-top {
+  padding: 3%;
+  background: #1d0a35;
+}
+
+.secondary-hero .secondary-box-top-logo {
+  object-fit: contain;
 }
