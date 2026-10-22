@@ -1,7 +1,7 @@
 :root {
   color: #fff;
   background: #050505;
-  font-family: Outfit, sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
   --bg: #050505;
   --panel: #101013;
@@ -18,7 +18,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--bg); }
-button, input, select, textarea { font: inherit; }
+button, input { font: inherit; }
 button { cursor: pointer; color: inherit; }
 a { color: inherit; }
 img { max-width: 100%; }
@@ -46,7 +46,7 @@ img { max-width: 100%; }
   padding: 0;
   background: transparent;
   color: #fff;
-  font-family: Outfit, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 1;
@@ -56,7 +56,7 @@ img { max-width: 100%; }
 
 .brand-mark {
   padding-right: .08em;
-  font-family: Outfit, sans-serif;
+  font-family: "Arial Black", Arial, Helvetica, sans-serif;
   font-size: 1.08em;
   font-weight: 900;
   font-style: italic;
@@ -215,8 +215,8 @@ img { max-width: 100%; }
 .hero-copy, .hero-product { position: relative; z-index: 1; }
 .hero h1, .buy-card h1, .section-title h2, .home-product h2, .faq h2, .page-hero h1, .empty h1, .info-static h2 {
   margin: 14px 0;
-  font-family: Outfit, sans-serif;
-  font-weight: 900;
+  font-family: Anton, Impact, sans-serif;
+  font-weight: 400;
   letter-spacing: 0;
   line-height: .9;
 }
@@ -531,7 +531,7 @@ img { max-width: 100%; }
   height: 54px;
   margin-top: 18px;
   color: #ff5aa8;
-  font-family: Outfit, sans-serif;
+  font-family: Georgia, serif;
   font-size: 94px;
   line-height: 1;
 }
@@ -539,7 +539,7 @@ img { max-width: 100%; }
 .secondary-testimonial-card blockquote {
   margin: 14px 0 32px;
   color: #f8eef4;
-  font-family: Outfit, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: clamp(18px, 1.65vw, 23px);
   font-weight: 600;
   line-height: 1.48;
@@ -1057,7 +1057,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
   --vice-line: rgba(255, 76, 178, .26);
   background: var(--vice-black);
   color: #fff;
-  font-family: Outfit, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .secondary-page h1,
@@ -1068,7 +1068,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
 .preorder-product-page h3,
 .secondary-preorder-btn,
 .secondary-sticky-preorder button {
-  font-family: Outfit, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
   text-transform: uppercase;
   letter-spacing: .02em;
 }
@@ -1243,7 +1243,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
   cursor: grab;
   will-change: transform;
   z-index: 1;
-  font-family: Outfit, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   text-transform: uppercase;
 }
 
@@ -1316,7 +1316,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
 .secondary-box-front strong {
   position: relative;
   z-index: 1;
-  font-family: Outfit, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: clamp(62px, 7.4vw, 96px);
   font-weight: 900;
   line-height: .82;
@@ -1330,7 +1330,7 @@ footer small { grid-column: 1 / -1; color: #817681; }
   position: relative;
   z-index: 1;
   color: var(--hero-gold);
-  font-family: Outfit, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .22em;
@@ -1357,14 +1357,14 @@ footer small { grid-column: 1 / -1; color: #817681; }
 .secondary-box-left span,
 .secondary-box-top span,
 .secondary-box-bottom span {
-  font-family: Outfit, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .2em;
 }
 
 .secondary-box-back b {
-  font-family: Outfit, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   color: var(--hero-peach);
   font-weight: 900;
   font-size: 42px;
@@ -1483,9 +1483,9 @@ footer small { grid-column: 1 / -1; color: #817681; }
 }
 
 .secondary-price b {
-  font-family: Outfit, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
   font-size: 34px;
-  font-weight: 900;
+  font-weight: 400;
 }
 
 .secondary-preorder-btn {
@@ -1837,9 +1837,9 @@ footer small { grid-column: 1 / -1; color: #817681; }
 .preorder-main-price {
   display: block;
   margin-top: 6px;
-  font-family: Outfit, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
   font-size: 38px;
-  font-weight: 900;
+  font-weight: 400;
 }
 
 .preorder-buy-copy {
@@ -2227,7 +2227,7 @@ body.drawer-lock { overflow: hidden; }
 
 .cart-drawer-head h2 {
   margin: 8px 0 0;
-  font-family: Outfit, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
   font-size: 42px;
   line-height: .9;
   text-transform: uppercase;
@@ -2389,7 +2389,7 @@ body.drawer-lock { overflow: hidden; }
 
 .checkout-success-card h1 {
   margin: 12px 0;
-  font-family: Outfit, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
   font-size: clamp(48px, 8vw, 88px);
   line-height: .88;
   text-transform: uppercase;

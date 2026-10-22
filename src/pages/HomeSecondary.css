@@ -122,7 +122,7 @@
   display: inline-block;
   font-size: clamp(25px, .52em, 52px);
   line-height: 1;
-  letter-spacing: -.05em;
+  letter-spacing: .01em;
 }
 
 .secondary-hero-stock {
@@ -219,7 +219,6 @@
   align-items: center;
   gap: clamp(28px, 4vw, 64px);
   white-space: nowrap;
-  font-family: Outfit, sans-serif;
   font-size: clamp(15px, 2vw, 22px);
   letter-spacing: .08em;
 }

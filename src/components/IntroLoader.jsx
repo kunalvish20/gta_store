@@ -70,7 +70,7 @@ export function IntroLoader({onComplete}) {
                 textAnchor="middle"
                 fill="white"
                 dominantBaseline="middle"
-                fontFamily="Outfit, sans-serif"
+                fontFamily="Arial Black, Impact, sans-serif"
               >
                 VI
               </text>
