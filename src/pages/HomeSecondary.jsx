@@ -264,7 +264,7 @@ export function HomeSecondary() {
         <div className="secondary-hero-cta">
           <div className="secondary-price">
             <span>PRE-ORDER PRICE</span>
-            <b>{format(PRODUCT.price)}</b>
+            <div className="secondary-price-values"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s></div>
           </div>
           <button className="secondary-preorder-btn" onClick={startPreorder}>
             PRE-ORDER BOX <ArrowRight size={20} />

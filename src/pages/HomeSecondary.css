@@ -168,15 +168,8 @@
   box-shadow: 0 24px 60px #32145040, inset 0 1px #ffc49a26;
 }
 
-.secondary-hero .secondary-preorder-btn {
-  background: linear-gradient(110deg, #ffc18d, #ff9a55 55%, #f47d38);
-  color: #382044;
-  box-shadow: 0 12px 34px #ff995540, inset 0 1px #ffddc2;
-}
-
-.secondary-hero .secondary-preorder-btn:hover {
-  box-shadow: 0 16px 40px #ff995566, inset 0 1px #ffddc2;
-}
+.secondary-price-values { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; }
+.secondary-price-values s { color: #b8a7b8; font-size: 18px; }
 
 .secondary-particles {
   position: absolute;
@@ -304,6 +297,7 @@
 
   .secondary-hero .secondary-price span { font-size: 8px; letter-spacing: .1em; }
   .secondary-hero .secondary-price b { font-size: 28px; line-height: 1; }
+  .secondary-hero .secondary-price s { font-size: 13px; }
   .secondary-hero .secondary-preorder-btn { min-height: 48px; gap: 6px; padding-inline: 8px; font-size: clamp(14px, 4vw, 17px); white-space: nowrap; }
   .secondary-hero .secondary-preorder-btn svg { flex-shrink: 0; width: 18px; height: 18px; }
   .secondary-hero .secondary-hero-cta > p { grid-column: 1 / -1; margin: 0; font-size: 10px; line-height: 1.3; }

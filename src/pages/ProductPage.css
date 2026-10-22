@@ -138,6 +138,7 @@
 .product-price-block { margin-top: 23px; padding-top: 21px; border-top: 1px solid #ffffff1c; }
 .product-price-line { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .product-price-line > b { font-size: 36px; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.product-price-line > s { color: #a59ba3; font-size: 20px; }
 .product-price-line > span { padding: 6px 8px; border-radius: 3px; background: #9df0b410; color: #a7e8bc; font-size: 10px; font-weight: 700; }
 .product-price-block > p { margin: 9px 0 0; color: #a59ba3; font-size: 11px; line-height: 1.5; }
 .product-intro { margin: 21px 0 16px; color: #c2b8c0; font-size: 14px; line-height: 1.7; }

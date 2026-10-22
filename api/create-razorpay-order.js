@@ -1,4 +1,4 @@
-const PRODUCT_PRICE = 4999;
+const PRODUCT_PRICE = 6999;
 const MAX_QTY = 10;
 
 function send(res, status, payload) {

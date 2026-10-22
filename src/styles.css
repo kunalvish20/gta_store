@@ -1454,17 +1454,9 @@ footer small { grid-column: 1 / -1; color: #817681; }
 }
 
 .secondary-hero .secondary-preorder-btn {
-  border-color: var(--hero-gold);
   border-radius: 6px;
   padding-inline: 16px;
-  color: #30213f;
-  background: linear-gradient(110deg, var(--hero-gold), var(--hero-peach) 55%, var(--hero-coral));
-  box-shadow: 0 12px 32px rgba(255, 151, 127, .24), inset 0 1px rgba(255, 246, 232, .65);
   font-size: 18px;
-}
-
-.secondary-hero .secondary-preorder-btn:hover {
-  box-shadow: 0 16px 40px rgba(255, 151, 127, .35), inset 0 1px rgba(255, 246, 232, .65);
 }
 
 .secondary-hero .secondary-preorder-btn:focus-visible {

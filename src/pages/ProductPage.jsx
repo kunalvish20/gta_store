@@ -95,7 +95,7 @@ export function ProductPage() {
             </a>
 
             <div className="product-price-block">
-              <div className="product-price-line"><b>{format(PRODUCT.price)}</b><span>Free standard delivery</span></div>
+              <div className="product-price-line"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s><span>Free standard delivery</span></div>
               <p>One collector box. All five items included.</p>
             </div>
             <p className="product-intro">Bring the Vice City mood to your setup. A curated mix of collectibles, artwork and a display lamp, together in one collector drop.</p>
