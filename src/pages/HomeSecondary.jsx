@@ -1,11 +1,9 @@
 import {ArrowRight, BadgeCheck, Check, Lock, Truck} from 'lucide-react';
 import {useEffect, useRef} from 'react';
-import {BoxGallery} from '../components/BoxGallery';
 import {Faq} from '../components/Faq';
 import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
-import {useStore} from '../context/StoreContext';
 import {useStickyReveal} from '../hooks/useStickyReveal';
 
 const TESTIMONIAL_PREVIEW = [
@@ -29,6 +27,8 @@ const TESTIMONIAL_PREVIEW = [
   }
 ];
 
+const MARQUEE_ITEMS = ['LIMITED STOCK', 'EXCLUSIVE COLLECTORS BOX'];
+
 function applyBoxRotation(element, {pitch, yaw}) {
   element.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
 }
@@ -40,7 +40,6 @@ function InteractiveDropBox({onOpenProduct}) {
     pitch: -8,
     dragging: false,
     moved: false,
-    userControlled: false,
     pointerId: null,
     x: 0,
     y: 0,
@@ -61,7 +60,6 @@ function InteractiveDropBox({onOpenProduct}) {
 
     const render = time => {
       const state = interaction.current;
-      if (state.userControlled) return;
       const dt = state.lastTime ? Math.min(time - state.lastTime, 34) : 16;
       state.lastTime = time;
 
@@ -98,7 +96,6 @@ function InteractiveDropBox({onOpenProduct}) {
     const dy = event.clientY - state.y;
     if (!state.moved && Math.hypot(event.clientX - state.startX, event.clientY - state.startY) <= 6) return;
     state.moved = true;
-    state.userControlled = true;
     state.x = event.clientX;
     state.y = event.clientY;
     state.yaw += dx * 0.7;
@@ -157,7 +154,6 @@ function InteractiveDropBox({onOpenProduct}) {
           else return;
 
           event.preventDefault();
-          state.userControlled = true;
           applyBoxRotation(event.currentTarget, state);
         }}
       >
@@ -187,7 +183,7 @@ function InteractiveDropBox({onOpenProduct}) {
         <div className="secondary-box-face secondary-box-right">
           <img
             className="secondary-box-cover"
-            src="/assets/box%20right%20cover.jpg.jpeg"
+            src="/assets/box%20left%20cover.jpg.jpeg"
             alt=""
             width={2363}
             height={2363}
@@ -198,7 +194,7 @@ function InteractiveDropBox({onOpenProduct}) {
         <div className="secondary-box-face secondary-box-left">
           <img
             className="secondary-box-cover"
-            src="/assets/box%20left%20cover.jpg.jpeg"
+            src="/assets/box%20right%20cover.jpg.jpeg"
             alt=""
             width={2363}
             height={2363}
@@ -217,7 +213,7 @@ function InteractiveDropBox({onOpenProduct}) {
             draggable={false}
           />
         </div>
-        <div className="secondary-box-face secondary-box-bottom"><span>2026 DROP</span></div>
+        <div className="secondary-box-face secondary-box-bottom" />
       </div>
       <div className="secondary-drag-hint">DRAG 360° IN ANY DIRECTION / TAP TO VIEW</div>
     </div>
@@ -225,9 +221,7 @@ function InteractiveDropBox({onOpenProduct}) {
 }
 
 export function HomeSecondary() {
-  const {preorder} = useStore();
   const stickyVisible = useStickyReveal(460);
-  const startPreorder = () => preorder(PRODUCT.id, 1);
   const openProduct = () => go(PRODUCT_PATH);
 
   return (
@@ -255,9 +249,10 @@ export function HomeSecondary() {
         </div>
 
         <div className="secondary-hero-copy">
-          <p className="secondary-kicker">LIMITED // PRE-ORDER DROP</p>
-          <h1 id="collector-hero-title">GTA VI<br /><em>DROP BOX.</em></h1>
-          </div>
+          <h1 id="collector-hero-title">GTA VI<br /><em>COLLECTORS<br />EDITION</em></h1>
+          <p className="secondary-kicker">LIMITED EDITION</p>
+          <p className="secondary-hero-stock">ONLY 500 BOXES.</p>
+        </div>
 
         <InteractiveDropBox onOpenProduct={openProduct} />
 
@@ -266,10 +261,25 @@ export function HomeSecondary() {
             <span>PRE-ORDER PRICE</span>
             <div className="secondary-price-values"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s></div>
           </div>
-          <button className="secondary-preorder-btn" onClick={startPreorder}>
+          <button className="secondary-preorder-btn" onClick={openProduct}>
             PRE-ORDER BOX <ArrowRight size={20} />
           </button>
           <p>Secure Razorpay checkout. Delivery updates from pre-order to dispatch.</p>
+        </div>
+      </section>
+
+      <section className="secondary-marquee" aria-label="Drop highlights">
+        <div className="secondary-marquee-track">
+          {Array.from({length: 6}, (_, copy) => (
+            <div className="secondary-marquee-group" key={copy} aria-hidden={copy > 0}>
+              {MARQUEE_ITEMS.map(item => (
+                <span className="secondary-marquee-item" key={item}>
+                  <span className="secondary-marquee-star" aria-hidden="true">✦</span>
+                  {item}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -292,16 +302,10 @@ export function HomeSecondary() {
           loading="lazy"
           decoding="async"
         />
-        <button className="secondary-preorder-btn" onClick={startPreorder}>
+        <button className="secondary-preorder-btn" onClick={openProduct}>
           PRE-ORDER BOX <ArrowRight size={20} />
         </button>
       </section>
-
-      <BoxGallery
-        eyebrow="THE DROP, FRAME BY FRAME"
-        title="Slide the product. Watch the story change."
-        className="secondary-story"
-      />
 
       <section className="store-trust-band secondary-quality" aria-label="Trusted store details">
         <article>
@@ -356,7 +360,7 @@ export function HomeSecondary() {
           <small>PRE-ORDER</small>
           <b>{format(PRODUCT.price)}</b>
         </div>
-        <button onClick={startPreorder}>PRE-ORDER BOX <ArrowRight size={17} /></button>
+        <button onClick={openProduct}>PRE-ORDER BOX <ArrowRight size={17} /></button>
       </div>
     </main>
   );

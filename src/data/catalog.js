@@ -12,7 +12,7 @@ export const PRODUCT = {
   name: 'GTA VI Collector Box',
   shortName: 'Collector Box',
   category: '5 Item Collector Drop',
-  price: 6999,
+  price: 6499,
   oldPrice: 9999,
   rating: 4.9,
   reviews: 128,
