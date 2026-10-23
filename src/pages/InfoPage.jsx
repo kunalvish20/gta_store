@@ -5,13 +5,13 @@ const pages = {
   shipping: {
     eyebrow: 'Delivery',
     title: 'Shipping & Delivery',
-    copy: 'The GTA VI Collector Box is a pre-order. Check the delivery details shown during checkout and keep your contact and shipping information accurate. Contact support with your payment ID if you have a question about dispatch or delivery.',
-    bullets: ['Standard delivery is included with the collector box', 'Review your delivery address before making payment', 'If your order is not fulfilled or arrives later than a stated delivery schedule, contact support for a review under the Return & Refund Policy']
+    copy: "The GTA VI Collector's Box is a pre-order. Check the delivery details shown during checkout and keep your contact and shipping information accurate. Contact support with your payment ID if you have a question about dispatch or delivery.",
+    bullets: ["Standard delivery is included with the Collector's Box", 'Review your delivery address before making payment', 'If your order is not fulfilled or arrives later than a stated delivery schedule, contact support for a review under the Return & Refund Policy']
   },
   returns: {
     eyebrow: 'Final sale policy',
     title: 'Return & Refund Policy',
-    copy: 'All items in the GTA VI Collector Box are final sale and non-returnable for a change of mind. Once an order is placed, we do not offer change-of-mind returns, exchanges, or refunds. Your rights under applicable consumer law remain in place.',
+    copy: "All items in the GTA VI Collector's Box are final sale and non-returnable for a change of mind. Once an order is placed, we do not offer change-of-mind returns, exchanges, or refunds. Your rights under applicable consumer law remain in place.",
     bullets: [
       'Contact support if an item is defective, damaged, incorrect, or materially different from its description',
       'Contact support if your order cannot be fulfilled or is delivered later than a stated delivery schedule',
@@ -43,7 +43,7 @@ const pages = {
   terms: {
     eyebrow: 'Policy',
     title: 'Terms of Service',
-    copy: 'Review the collector box details, INR price, quantity, delivery information, and Return & Refund Policy before placing a pre-order. All items are final sale for a change of mind, while remedies required by applicable consumer law remain available.',
+    copy: "Review the Collector's Box details, INR price, quantity, delivery information, and Return & Refund Policy before placing a pre-order. All items are final sale for a change of mind, while remedies required by applicable consumer law remain available.",
     bullets: ['Prices and order totals are shown in INR before payment', 'Orders are confirmed after successful payment verification', 'Use the contact page to report an order or delivery issue']
   },
   payment: {
@@ -67,7 +67,7 @@ const pages = {
   warranty: {
     eyebrow: 'Care',
     title: 'Product Care',
-    copy: 'Store collector items away from direct sunlight, heat, moisture, and rough handling. These care tips do not change the Return & Refund Policy or any rights under applicable consumer law.',
+    copy: "Store Collector's Edition items away from direct sunlight, heat, moisture, and rough handling. These care tips do not change the Return & Refund Policy or any rights under applicable consumer law.",
     bullets: ['Keep packaging and order details if you need to report an issue', 'Avoid bending printed inserts and poster material', 'Use a dry microfiber cloth for display items']
   }
 };

@@ -173,16 +173,6 @@
 .product-service-strip svg { color: #e5cfde; }
 .product-service-strip b { font-size: 10px; line-height: 1.4; font-weight: 600; }
 .product-service-strip > a:hover { color: #ff79c3; }
-.product-purchase-details details { border-bottom: 1px solid #ffffff1c; }
-.product-purchase-details summary { min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 10px; list-style: none; cursor: pointer; font-size: 12px; font-weight: 700; }
-.product-purchase-details summary::-webkit-details-marker { display: none; }
-.product-purchase-details summary > span { display: flex; align-items: center; gap: 8px; color: #9b8e97; font-size: 10px; font-weight: 400; }
-.product-purchase-details summary svg { flex-shrink: 0; transition: transform .18s ease; }
-.product-purchase-details details[open] summary svg { transform: rotate(180deg); }
-.product-purchase-details ul { display: grid; gap: 8px; padding-left: 17px; margin: 0 0 18px; color: #baadb6; font-size: 12px; line-height: 1.5; }
-.product-purchase-details details p { margin: 0 0 14px; color: #baadb6; font-size: 12px; line-height: 1.7; }
-.product-purchase-details details > div { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
-.product-purchase-details details a { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #ff85c9; text-underline-offset: 4px; }
 .ecommerce-product-page #reviews, .ecommerce-product-page #inside-box { scroll-margin-top: 92px; }
 
 .product-purchase-sticky { position: fixed; z-index: 90; inset: auto 0 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 13px max(var(--product-gutter), calc((100vw - 1280px) / 2)); border-top: 1px solid #ff4fb23d; background: #08080bf2; box-shadow: 0 -10px 36px #0005; backdrop-filter: blur(16px); transform: translateY(110%); opacity: 0; pointer-events: none; visibility: hidden; transition: transform .25s ease, opacity .2s ease, visibility .25s; }
@@ -251,5 +241,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ecommerce-product-page .product-purchase-sticky, .ecommerce-product-page button, .product-purchase-details summary svg { transition: none; }
+  .ecommerce-product-page .product-purchase-sticky, .ecommerce-product-page button { transition: none; }
 }

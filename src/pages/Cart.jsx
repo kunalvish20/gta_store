@@ -50,7 +50,7 @@ function EmptyCart() {
     <section className="empty">
       <ShoppingBag />
       <h1>Your cart is empty.</h1>
-      <p>Add the GTA VI Collector Box to start checkout.</p>
+      <p>Add the GTA VI Collector's Box to start checkout.</p>
       <button className="primary-btn" onClick={() => go(PRODUCT_PATH)}>View Product</button>
     </section>
   );

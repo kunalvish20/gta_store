@@ -1,4 +1,4 @@
-import {CreditCard, Headphones, PackageCheck, ShieldCheck} from 'lucide-react';
+import {ArrowUpRight, CreditCard, Headphones, Mail, PackageCheck, Phone, ShieldCheck} from 'lucide-react';
 import {PRODUCT_PATH, SITE} from '../data/catalog';
 import {BrandLogo} from './BrandLogo';
 
@@ -37,20 +37,25 @@ const footerGroups = [
 
 const trustItems = [
   [ShieldCheck, 'Secure Payments', 'Razorpay checkout with server-side payment verification.'],
-  [PackageCheck, 'Protected Packing', 'Collector items are packed for safer storage and delivery.'],
+  [PackageCheck, 'Protected Packing', "Collector's Edition items are packed for safer storage and delivery."],
   [CreditCard, 'Clear Totals', 'Order total, delivery cost, and quantity are shown before payment.']
 ];
 
 export function Footer() {
+  const scrollToSection = label => {
+    const target = label === 'Reviews' ? 'reviews' : label === 'Inside Box' ? 'inside-box' : null;
+    if (target) setTimeout(() => document.getElementById(target)?.scrollIntoView({behavior: 'smooth'}), 100);
+  };
+
   return (
-    <footer>
+    <footer className="site-footer">
       <div className="footer-brand">
         <BrandLogo />
-        <p>Independent collector storefront for the GTA VI Collector Box, with secure payment, transparent policies, and support before and after checkout.</p>
+        <p>Independent storefront for the GTA VI Collector's Box, with secure payment, transparent policies, and support before and after checkout.</p>
         <div className="footer-contact">
-          <span><Headphones size={16} /> {SITE.supportEmail}</span>
-          <span>{SITE.supportPhone}</span>
-          <span>{SITE.supportHours}</span>
+          <a href={`mailto:${SITE.supportEmail}`}><Mail size={16} aria-hidden="true" /> {SITE.supportEmail}</a>
+          <a href={`tel:${SITE.supportPhone.replace(/[^+\d]/g, '')}`}><Phone size={16} aria-hidden="true" /> {SITE.supportPhone}</a>
+          <span><Headphones size={16} aria-hidden="true" /> {SITE.supportHours}</span>
         </div>
       </div>
 
@@ -68,20 +73,21 @@ export function Footer() {
         {footerGroups.map(group => (
           <section key={group.title}>
             <h3>{group.title}</h3>
-            {group.links.map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                onClick={label === 'Reviews' ? () => setTimeout(() => document.getElementById('reviews')?.scrollIntoView({behavior: 'smooth'}), 80) : undefined}
-              >
-                {label}
-              </a>
-            ))}
+            <ul>
+              {group.links.map(([label, href]) => (
+                <li key={label}>
+                  <a href={href} onClick={() => scrollToSection(label)}>{label}</a>
+                </li>
+              ))}
+            </ul>
           </section>
         ))}
       </nav>
 
-      <small>&copy; 2026 {SITE.name}. Secure checkout powered by Razorpay. Independent collector merchandise store.</small>
+      <div className="footer-bottom">
+        <small>&copy; 2026 {SITE.name}. Secure checkout powered by Razorpay. Independent merchandise store.</small>
+        <a href="#/contact">Need help? Contact us <ArrowUpRight size={15} aria-hidden="true" /></a>
+      </div>
     </footer>
   );
 }

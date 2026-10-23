@@ -1,5 +1,5 @@
 import {Menu, ShoppingBag, X} from 'lucide-react';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
 import {BrandLogo} from './BrandLogo';
 import {useStore} from '../context/StoreContext';
@@ -16,7 +16,36 @@ export function Header() {
   const route = useRoute();
   const {count} = useStore();
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef(null);
   const isPreorderRoute = ['/', '/home', '/homepage-secondary', '/home-secondary'].includes(route) || route === PRODUCT_PATH || route.startsWith('/product/');
+
+  useEffect(() => setOpen(false), [route]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const desktop = window.matchMedia('(min-width: 981px)');
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    const closeOnEscape = event => {
+      if (event.key !== 'Escape') return;
+      setOpen(false);
+      menuButtonRef.current?.focus();
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', closeOnEscape);
+    desktop.addEventListener('change', closeOnDesktop);
+    closeOnDesktop();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', closeOnEscape);
+      desktop.removeEventListener('change', closeOnDesktop);
+    };
+  }, [open]);
 
   const navigate = path => {
     setOpen(false);
@@ -40,19 +69,27 @@ export function Header() {
             {count > 0 && <b>{count}</b>}
           </button>
           <button className="buy-link" onClick={() => go(PRODUCT_PATH)}>{isPreorderRoute ? 'Pre-Order' : 'Buy Now'}</button>
-          <button className="menu-btn" aria-label="Menu" onClick={() => setOpen(value => !value)}>
-            {open ? <X /> : <Menu />}
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className={`menu-btn ${open ? 'is-open' : ''}`}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-controls="site-mobile-menu"
+            aria-expanded={open}
+            onClick={() => setOpen(value => !value)}
+          >
+            <Menu className="menu-icon menu-icon-open" size={20} aria-hidden="true" />
+            <X className="menu-icon menu-icon-close" size={20} aria-hidden="true" />
           </button>
         </div>
       </header>
-      {open && (
-        <div className="mobile-menu">
-          <b>{PRODUCT.name}</b>
-          {links.map(([label, path]) => (
-            <button key={label} onClick={() => navigate(path)}>{label}</button>
-          ))}
-        </div>
-      )}
+      <div className={`mobile-menu-backdrop ${open ? 'is-open' : ''}`} aria-hidden="true" onClick={() => setOpen(false)} />
+      <div id="site-mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open} inert={!open}>
+        <b>{PRODUCT.name}</b>
+        {links.map(([label, path]) => (
+          <button key={label} type="button" onClick={() => navigate(path)}>{label}</button>
+        ))}
+      </div>
     </>
   );
 }

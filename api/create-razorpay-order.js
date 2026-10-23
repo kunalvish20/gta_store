@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       currency: 'INR',
       receipt: `dd-preorder-${Date.now()}`,
       notes: {
-        product: 'GTA VI Collector Box',
+        product: "GTA VI Collector's Box",
         quantity: String(quantity),
         name: clean(customer.name),
         email: clean(customer.email),

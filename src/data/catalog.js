@@ -9,18 +9,18 @@ export const SITE = {
 
 export const PRODUCT = {
   id: 'gta-collector-box',
-  name: 'GTA VI Collector Box',
-  shortName: 'Collector Box',
-  category: '5 Item Collector Drop',
+  name: "GTA VI Collector's Box",
+  shortName: "Collector's Box",
+  category: "9 Item Collector's Edition",
   price: 6499,
   oldPrice: 9999,
   rating: 4.9,
   reviews: 128,
   tag: 'Pre-Order Drop',
   description:
-    'A premium pre-order collector drop built around black surfaces, neon nights and Vice-inspired energy.',
+    "A premium pre-order Collector's Edition drop built around black surfaces, neon nights and Vice-inspired energy.",
   highlights: [
-    'Five display-ready collector items',
+    "9 display-ready Collector's Edition items",
     'Secure Razorpay checkout',
     'Protective gift-ready packing',
     'Tracked delivery updates after dispatch'
@@ -38,7 +38,7 @@ export const BOX_ITEMS = [
     src: '/assets/gamibng.png'
   },
   {
-    name: 'Collector artwork',
+    name: "Collector's artwork",
     detail: 'Premium GTA-inspired artwork for the box reveal.',
     src: '/assets/Gta_VI.png'
   },
@@ -53,8 +53,8 @@ export const BOX_ITEMS = [
     src: '/assets/poster-full.jpg'
   },
   {
-    name: 'Collector logo card',
-    detail: 'Finishing insert with care and collector details.',
+    name: "Collector's logo card",
+    detail: 'Finishing insert with care and display details.',
     src: '/assets/poster-logo.png',
     contain: true
   }

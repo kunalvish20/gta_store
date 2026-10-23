@@ -1,4 +1,4 @@
-import {ArrowRight, Check, ChevronDown, ChevronLeft, ChevronRight, LockKeyhole, Minus, PackageCheck, Plus, ShieldCheck, ShoppingBag, Star, Truck} from 'lucide-react';
+import {ArrowRight, Check, ChevronLeft, ChevronRight, LockKeyhole, Minus, PackageCheck, Plus, ShieldCheck, ShoppingBag, Star, Truck} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {Faq} from '../components/Faq';
 import {ProductArt} from '../components/ProductArt';
@@ -49,7 +49,7 @@ export function ProductPage() {
       <section className="ecom-product-hero" aria-labelledby="product-title">
         <nav className="product-breadcrumbs" aria-label="Breadcrumb">
           <a href="#/">Home</a><ChevronRight size={12} />
-          <span>Collector drops</span><ChevronRight size={12} />
+          <span>Collector's Edition</span><ChevronRight size={12} />
           <span aria-current="page">{PRODUCT.shortName}</span>
         </nav>
 
@@ -59,13 +59,13 @@ export function ProductPage() {
               className="product-gallery-main"
               role="group"
               aria-roledescription="carousel"
-              aria-label="Collector box images"
+              aria-label="Collector's Box images"
               onTouchStart={event => { touchStart.current = event.touches[0].clientX; }}
               onTouchEnd={onTouchEnd}
               onTouchCancel={() => { touchStart.current = null; }}
             >
               <ProductArt item={current} large priority={active === 0} />
-              <span className="product-gallery-badge"><PackageCheck size={14} /> 5 ITEMS. ONE BOX.</span>
+              <span className="product-gallery-badge"><PackageCheck size={14} /> 9 ITEMS. ONE BOX.</span>
               <div className="product-gallery-caption">
                 <span>{current.name}</span>
                 <span aria-hidden="true">{String(active + 1).padStart(2, '0')} / {String(BOX_ITEMS.length).padStart(2, '0')}</span>
@@ -82,11 +82,11 @@ export function ProductPage() {
                 </button>
               ))}
             </div>
-            <p className="product-gallery-note"><PackageCheck size={14} /> Explore all five items included in your collector box.</p>
+            <p className="product-gallery-note"><PackageCheck size={14} /> Preview five featured items from your Collector's Box.</p>
           </div>
 
           <div className="product-purchase-panel">
-            <div className="product-edition"><span>{SITE.shortName} COLLECTOR SERIES</span><span className="product-preorder-tag">PRE-ORDER</span></div>
+            <div className="product-edition"><span>{SITE.shortName} COLLECTOR'S EDITION</span><span className="product-preorder-tag">PRE-ORDER</span></div>
             <h1 id="product-title">{PRODUCT.name}</h1>
             <a className="product-rating" href="#reviews" onClick={event => { event.preventDefault(); document.getElementById('reviews')?.scrollIntoView({behavior: 'smooth'}); }}>
               <span className="product-rating-stars" aria-hidden="true">{[1, 2, 3, 4, 5].map(star => <Star key={star} size={14} fill="currentColor" />)}</span>
@@ -96,9 +96,9 @@ export function ProductPage() {
 
             <div className="product-price-block">
               <div className="product-price-line"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s><span>Free standard delivery</span></div>
-              <p>One collector box. All five items included.</p>
+              <p>One Collector's Box. All 9 items included.</p>
             </div>
-            <p className="product-intro">Bring the Vice City mood to your setup. A curated mix of collectibles, artwork and a display lamp, together in one collector drop.</p>
+            <p className="product-intro">Bring the Vice City mood to your setup. A curated mix of collectibles, artwork and a display lamp, together in one Collector's Edition drop.</p>
 
             <div className="product-quantity-row">
               <label htmlFor="product-quantity">Quantity<small id="product-quantity-limit">Max {MAX_ORDER_QUANTITY} per order</small></label>
@@ -124,22 +124,11 @@ export function ProductPage() {
             </div>
 
             <ul className="product-buy-benefits">
-              <li><Check size={16} /> Five display-ready collector items</li>
+              <li><Check size={16} /> 9 display-ready Collector's Edition items</li>
               <li><Check size={16} /> Protective packing for your collection</li>
               <li><Check size={16} /> Tracking updates after dispatch</li>
             </ul>
 
-            <div className="product-purchase-details">
-              <details>
-                <summary>What's in the box? <span>5 collector items <ChevronDown size={16} /></span></summary>
-                <ul>{BOX_ITEMS.map(item => <li key={item.name}>{item.name}</li>)}</ul>
-              </details>
-              <details>
-                <summary>Delivery &amp; returns <ChevronDown size={16} /></summary>
-                <p>Free standard delivery. Dispatch and tracking updates are shared after your pre-order moves to fulfilment. For damaged or incorrect items, contact support within 48 hours of delivery.</p>
-                <div><a href="#/shipping">Shipping details <ArrowRight size={13} /></a><a href="#/returns">Returns &amp; support <ArrowRight size={13} /></a></div>
-              </details>
-            </div>
           </div>
         </div>
       </section>
@@ -148,12 +137,12 @@ export function ProductPage() {
 
       <section className="store-trust-band product-trust-band" aria-label="Purchase confidence">
         <article><ShieldCheck /><b>Secure payment</b><p>Pay with UPI, cards, or netbanking through Razorpay checkout.</p></article>
-        <article><PackageCheck /><b>Packed for collectors</b><p>The order is prepared as a display-ready drop with protective packing and care guidance.</p></article>
+        <article><PackageCheck /><b>Collector's Edition packing</b><p>The order is prepared as a display-ready drop with protective packing and care guidance.</p></article>
         <article><Check /><b>Clear policy links</b><p>Shipping, returns, cancellation, payment, and contact details remain available before checkout.</p></article>
       </section>
 
       <section className="product-detail-band">
-        <article><span>01</span><b>See every item</b><p>Explore all five collectibles in the image gallery before choosing your box.</p></article>
+        <article><span>01</span><b>See the collection</b><p>Explore five featured collectibles in the image gallery before choosing your box.</p></article>
         <article><span>02</span><b>Review before payment</b><p>Check your quantity, subtotal, and free standard delivery in your cart before checkout.</p></article>
         <article><span>03</span><b>Support for your order</b><p>Delivery updates and clear support links keep you informed from pre-order to dispatch.</p></article>
       </section>
@@ -171,7 +160,7 @@ export function ProductPage() {
       <Faq />
 
       <div className={`product-purchase-sticky ${stickyVisible ? 'is-visible' : ''}`} aria-hidden={!stickyVisible}>
-        <div className="product-sticky-info"><span>{quantity > 1 ? `${quantity} collector boxes` : PRODUCT.shortName}</span><b>{format(PRODUCT.price * quantity)}</b><small>Free delivery · Pre-order</small></div>
+        <div className="product-sticky-info"><span>{quantity > 1 ? `${quantity} Collector's Boxes` : PRODUCT.shortName}</span><b>{format(PRODUCT.price * quantity)}</b><small>Free delivery · Pre-order</small></div>
         <button className="product-cart-button" onClick={addToCart} tabIndex={stickyVisible ? 0 : -1}><ShoppingBag size={18} /> Add to cart <ArrowRight size={18} /></button>
       </div>
     </main>

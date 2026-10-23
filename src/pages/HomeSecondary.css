@@ -455,3 +455,11 @@
   height: 72%;
   object-fit: contain;
 }
+
+.secondary-final-tagline {
+  margin: 12px 0 0;
+  color: #ff9bbf;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 800;
+  letter-spacing: .12em;
+}

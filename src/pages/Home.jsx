@@ -32,7 +32,7 @@ export function Home() {
           </div>
           <div className="proof-row">
             <span><Check size={15} /> One product</span>
-            <span><Check size={15} /> 5 items inside</span>
+            <span><Check size={15} /> 9 items inside</span>
             <span><Check size={15} /> Sticky cart</span>
           </div>
         </div>
@@ -43,7 +43,7 @@ export function Home() {
       </section>
 
       <section className="ticker">
-        <div>{[SITE.name.toUpperCase(), 'ONE BOX', 'FIVE ITEMS', 'LIMITED DROP', 'SECURE CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
+        <div>{[SITE.name.toUpperCase(), 'ONE BOX', '9 ITEMS', 'LIMITED DROP', 'SECURE CHECKOUT', 'GTA STYLE'].map(label => <span key={label}>{label}</span>)}</div>
       </section>
 
       <section className="offer-section">

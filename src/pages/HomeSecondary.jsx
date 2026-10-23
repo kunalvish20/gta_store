@@ -21,13 +21,13 @@ const TESTIMONIAL_PREVIEW = [
   },
   {
     topic: 'THE DETAILS',
-    quote: 'The lamp and poster caught my eye first. Seeing how the five items fit together made the drop feel thoughtfully put together.',
+    quote: 'The lamp and poster caught my eye first. Seeing how the items fit together made the drop feel thoughtfully put together.',
     name: 'Dev K.',
     initials: 'DK'
   }
 ];
 
-const MARQUEE_ITEMS = ['LIMITED STOCK', 'EXCLUSIVE COLLECTORS BOX'];
+const MARQUEE_ITEMS = ['LIMITED STOCK', "EXCLUSIVE COLLECTOR'S BOX"];
 
 function applyBoxRotation(element, {pitch, yaw}) {
   element.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
@@ -121,7 +121,7 @@ function InteractiveDropBox({onOpenProduct}) {
       <div
         className="secondary-box"
         role="button"
-        aria-label="Rotate the GTA VI Collector Box 360 degrees. Drag in any direction or use arrow keys. Press Enter to view the product."
+        aria-label="Rotate the GTA VI Collector's Box 360 degrees. Drag in any direction or use arrow keys. Press Enter to view the product."
         tabIndex={0}
         ref={boxRef}
         onPointerDown={onPointerDown}
@@ -249,7 +249,7 @@ export function HomeSecondary() {
         </div>
 
         <div className="secondary-hero-copy">
-          <h1 id="collector-hero-title">GTA VI<br /><em>COLLECTORS<br />EDITION</em></h1>
+          <h1 id="collector-hero-title">GTA VI<br /><em>COLLECTOR'S<br />EDITION</em></h1>
           <p className="secondary-kicker">LIMITED EDITION</p>
           <p className="secondary-hero-stock">ONLY 500 BOXES.</p>
         </div>
@@ -285,8 +285,9 @@ export function HomeSecondary() {
 
       <section className="secondary-final-cta" aria-labelledby="collector-box-title">
         <div className="secondary-final-copy">
-          <p className="secondary-kicker">ONE PRODUCT // ONE DECISION</p>
+          <p className="secondary-kicker">COLLECTOR'S EDITION</p>
           <h2 id="collector-box-title">{PRODUCT.name}</h2>
+          <p className="secondary-final-tagline">EXCLUSIVE BOX · LIMITED EDITION</p>
           <div className="secondary-final-proof">
             <span><Check size={15} /> One premium drop</span>
             <span><Check size={15} /> Smooth product gallery</span>
@@ -295,10 +296,10 @@ export function HomeSecondary() {
         </div>
         <img
           className="secondary-final-image"
-          src="/assets/lamp_gta-VI.png"
-          alt="GTA VI neon display lamp"
-          width={1122}
-          height={1402}
+          src="/assets/Gta_VI.png"
+          alt="GTA VI Collector's Box"
+          width={1254}
+          height={1254}
           loading="lazy"
           decoding="async"
         />

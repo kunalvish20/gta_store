@@ -1,4 +1,4 @@
-# GTA Store - GTA VI Collector Box Pre-Order
+# GTA Store - GTA VI Collector's Box Pre-Order
 
 Routes:
 
