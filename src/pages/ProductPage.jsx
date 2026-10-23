@@ -138,7 +138,7 @@ export function ProductPage() {
       <section className="store-trust-band product-trust-band" aria-label="Purchase confidence">
         <article><ShieldCheck /><b>Secure payment</b><p>Pay with UPI, cards, or netbanking through Razorpay checkout.</p></article>
         <article><PackageCheck /><b>Collector's Edition packing</b><p>The order is prepared as a display-ready drop with protective packing and care guidance.</p></article>
-        <article><Check /><b>Clear policy links</b><p>Shipping, returns, cancellation, payment, and contact details remain available before checkout.</p></article>
+        <article><Check /><b>Clear policy links</b><p>Shipping, terms, payment, and contact details remain available before checkout.</p></article>
       </section>
 
       <section className="product-detail-band">

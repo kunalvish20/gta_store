@@ -221,7 +221,7 @@ function InteractiveDropBox({onOpenProduct}) {
 }
 
 export function HomeSecondary() {
-  const stickyVisible = useStickyReveal(460);
+  const stickyVisible = useStickyReveal(460, '.site-footer');
   const openProduct = () => go(PRODUCT_PATH);
 
   return (
@@ -249,7 +249,23 @@ export function HomeSecondary() {
         </div>
 
         <div className="secondary-hero-copy">
-          <h1 id="collector-hero-title">GTA VI<br /><em>COLLECTOR'S<br />EDITION</em></h1>
+          <h1 id="collector-hero-title" className="secondary-hero-logo">
+            <span className="secondary-hero-logo-main">
+              <span>GTA</span>
+              <svg className="secondary-hero-logo-vi" viewBox="0 0 146 100" role="img" aria-label="VI">
+                <defs>
+                  <clipPath id="hero-vi-letters">
+                    <path d="M1 1h29l23 73L76 1h29L69 99H37Z" />
+                    <path d="M115 1h30v98h-30z" />
+                  </clipPath>
+                </defs>
+                <image href="/assets/texttbg.png" x="0" y="-23" width="146" height="146" clipPath="url(#hero-vi-letters)" />
+                <path d="M1 1h29l23 73L76 1h29L69 99H37Z" fill="none" stroke="#fff" strokeWidth="2" />
+                <path d="M115 1h30v98h-30z" fill="none" stroke="#fff" strokeWidth="2" />
+              </svg>
+            </span>
+            <span className="secondary-hero-logo-edition"><span>COLLECTOR'S</span>{' '}<span>EDITION</span></span>
+          </h1>
           <p className="secondary-kicker">LIMITED EDITION</p>
           <p className="secondary-hero-stock">ONLY 500 BOXES.</p>
         </div>
@@ -264,7 +280,6 @@ export function HomeSecondary() {
           <button className="secondary-preorder-btn" onClick={openProduct}>
             PRE-ORDER BOX <ArrowRight size={20} />
           </button>
-          <p>Secure Razorpay checkout. Delivery updates from pre-order to dispatch.</p>
         </div>
       </section>
 
@@ -296,7 +311,7 @@ export function HomeSecondary() {
         </div>
         <img
           className="secondary-final-image"
-          src="/assets/Gta_VI.png"
+          src="/assets/Gta-box.webp"
           alt="GTA VI Collector's Box"
           width={1254}
           height={1254}

@@ -19,7 +19,7 @@ export function Cart() {
   }
 
   return (
-    <main className="page">
+    <main className="page cart-page">
       <section className="page-hero">
         <p className="eyebrow">Cart</p>
         <h1>Your box is ready.</h1>
@@ -27,17 +27,19 @@ export function Cart() {
       <section className="cart-layout">
         <article className="cart-line">
           <ProductArt item={BOX_ITEMS[0]} />
-          <div>
+          <div className="cart-line-details">
             <small>{PRODUCT.category}</small>
             <h2>{PRODUCT.name}</h2>
             <b>{format(PRODUCT.price)}</b>
-            <div className="qty mini">
-              <button onClick={() => setQty(PRODUCT.id, qty - 1)}><Minus /></button>
-              <span>{qty}</span>
-              <button onClick={() => setQty(PRODUCT.id, qty + 1)}><Plus /></button>
+            <div className="cart-line-actions">
+              <div className="qty mini" role="group" aria-label="Quantity">
+                <button type="button" aria-label="Decrease quantity" onClick={() => setQty(PRODUCT.id, qty - 1)}><Minus /></button>
+                <span>{qty}</span>
+                <button type="button" aria-label="Increase quantity" onClick={() => setQty(PRODUCT.id, qty + 1)}><Plus /></button>
+              </div>
+              <button className="remove-btn" type="button" onClick={() => setQty(PRODUCT.id, 0)}>Remove</button>
             </div>
           </div>
-          <button className="remove-btn" onClick={() => setQty(PRODUCT.id, 0)}>Remove</button>
         </article>
         <OrderSummary subtotal={subtotal} shipping={shipping} />
       </section>

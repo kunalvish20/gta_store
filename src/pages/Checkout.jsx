@@ -1,67 +1,49 @@
-import {ArrowRight, CheckCircle, Loader2} from 'lucide-react';
-import {useMemo, useState} from 'react';
-import {PRODUCT, PRODUCT_PATH, SITE} from '../data/catalog';
+import {ArrowLeft, ArrowRight, CheckCircle, LockKeyhole, Loader2, Minus, Plus, ShieldCheck, ShoppingBag, Truck} from 'lucide-react';
+import {useState} from 'react';
+import {BOX_ITEMS, MAX_ORDER_QUANTITY, PRODUCT, PRODUCT_PATH, SITE} from '../data/catalog';
 import {useStore} from '../context/StoreContext';
 import {format} from '../lib/format';
 import {go} from '../hooks/useRoute';
 import {createRazorpayOrder, loadRazorpayScript, RAZORPAY_KEY_ID, verifyRazorpayPayment} from '../lib/razorpay';
+import './Checkout.css';
 
-const initialForm = {
-  name: '',
-  email: '',
-  phone: '',
-  pincode: '',
-  address: '',
-  city: '',
-  state: ''
-};
+const initialForm = {name: '', email: '', phone: '', pincode: '', address: '', city: '', state: ''};
 
 export function Checkout() {
-  const {cart, subtotal, clearCart} = useStore();
+  const {cart, subtotal, setQty, clearCart} = useStore();
   const qty = cart[PRODUCT.id] || 0;
-  const shipping = subtotal >= PRODUCT.price || subtotal === 0 ? 0 : 199;
-  const total = subtotal + shipping;
+  const total = subtotal;
   const [form, setForm] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(null);
-
-  const canPay = useMemo(() => {
-    return qty > 0 && Object.values(form).every(value => String(value).trim().length > 1);
-  }, [form, qty]);
+  const [pendingPayment, setPendingPayment] = useState(null);
 
   const update = event => {
     const {name, value} = event.target;
-    setForm(current => ({...current, [name]: value}));
+    const nextValue = name === 'phone' || name === 'pincode' ? value.replace(/\D/g, '') : value;
+    setForm(current => ({...current, [name]: nextValue}));
+    if (error && !pendingPayment) setError('');
   };
 
   const payNow = async event => {
     event.preventDefault();
+    if (loading || pendingPayment) return;
     setError('');
-
-    if (!qty) {
-      setError('Cart is empty. Please add the pre-order first.');
+    if (!qty) return;
+    const customer = Object.fromEntries(Object.entries(form).map(([key, value]) => [key, value.trim()]));
+    const invalidField = ['name', 'address', 'city', 'state'].find(key => customer[key].length < (key === 'address' ? 5 : 2));
+    if (invalidField) {
+      setError('Please enter a complete name and delivery address.');
+      event.currentTarget.elements.namedItem(invalidField)?.focus();
       return;
     }
-
-    if (!canPay) {
-      setError('Please complete all checkout fields before payment.');
-      return;
-    }
-
-    if (!RAZORPAY_KEY_ID) {
-      setError(`Payment checkout is not configured yet. Please contact ${SITE.supportEmail} for help.`);
-      return;
-    }
-
     setLoading(true);
-
     try {
       const scriptReady = await loadRazorpayScript();
-      if (!scriptReady) throw new Error('Razorpay checkout script could not be loaded.');
-
-      const order = await createRazorpayOrder({quantity: qty, customer: form});
-
+      if (!scriptReady) throw new Error('Payment could not open. Check your connection and try again.');
+      const order = await createRazorpayOrder({quantity: qty, customer});
+      if (!order.publicKey && !RAZORPAY_KEY_ID) throw new Error('Online payment is temporarily unavailable. Please try again later.');
       const payment = await new Promise((resolve, reject) => {
         const razorpay = new window.Razorpay({
           key: order.publicKey || RAZORPAY_KEY_ID,
@@ -70,36 +52,42 @@ export function Checkout() {
           name: SITE.name,
           description: `${PRODUCT.name} Pre-Order`,
           order_id: order.orderId,
-          prefill: {
-            name: form.name,
-            email: form.email,
-            contact: form.phone
-          },
-          notes: {
-            address: form.address,
-            city: form.city,
-            state: form.state,
-            pincode: form.pincode
-          },
+          prefill: {name: customer.name, email: customer.email, contact: customer.phone},
+          notes: {address: customer.address, city: customer.city, state: customer.state, pincode: customer.pincode},
           theme: {color: '#ff2a9a'},
           handler: resolve,
-          modal: {
-            ondismiss: () => reject(new Error('Payment popup was closed.'))
-          }
+          modal: {ondismiss: () => reject(new Error('Payment window closed. Your order has not been confirmed.'))}
         });
-
         razorpay.on('payment.failed', response => {
-          reject(new Error(response?.error?.description || 'Payment failed.'));
+          reject(new Error(response?.error?.description || 'Payment failed. Please try again.'));
         });
-
         razorpay.open();
       });
-
-      const verified = await verifyRazorpayPayment(payment);
-      clearCart();
-      setSuccess({paymentId: verified.paymentId || payment.razorpay_payment_id});
+      try {
+        const verified = await verifyRazorpayPayment(payment);
+        clearCart();
+        setSuccess({paymentId: verified.paymentId || payment.razorpay_payment_id});
+      } catch {
+        setPendingPayment(payment);
+        setError(`Payment was submitted, but confirmation is pending. Keep payment ID ${payment.razorpay_payment_id} and retry confirmation below. Please do not pay again.`);
+      }
     } catch (paymentError) {
-      setError(paymentError.message || 'Payment could not be completed.');
+      const message = paymentError.message || '';
+      setError(message.includes('configured') ? 'Online payment is temporarily unavailable. Please try again later.' : message || 'Payment could not be completed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const retryConfirmation = async () => {
+    if (!pendingPayment || loading) return;
+    setLoading(true);
+    try {
+      const verified = await verifyRazorpayPayment(pendingPayment);
+      clearCart();
+      setSuccess({paymentId: verified.paymentId || pendingPayment.razorpay_payment_id});
+    } catch {
+      setError(`Confirmation is still pending for payment ID ${pendingPayment.razorpay_payment_id}. Please do not pay again.`);
     } finally {
       setLoading(false);
     }
@@ -119,49 +107,112 @@ export function Checkout() {
     );
   }
 
+  if (!qty) {
+    return (
+      <main className="page checkout-empty-page">
+        <section className="checkout-empty-card">
+          <ShoppingBag aria-hidden="true" />
+          <h1>Your cart is empty.</h1>
+          <p>Add the Collector’s Box to begin your pre-order.</p>
+          <button type="button" onClick={() => go(PRODUCT_PATH)}>View Collector’s Box <ArrowRight size={18} /></button>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="page checkout-page">
-      <section className="page-hero checkout-hero">
-        <p className="eyebrow">Secure Checkout</p>
-        <h1>Complete your pre-order.</h1>
-      </section>
-      <section className="checkout-layout">
-        <form onSubmit={payNow}>
-          <h2>Contact</h2>
-          <div className="form-grid">
-            <label>Full name<input name="name" value={form.name} onChange={update} required placeholder="Your name" /></label>
-            <label>Email<input name="email" value={form.email} onChange={update} required type="email" placeholder="you@example.com" /></label>
-            <label>Phone<input name="phone" value={form.phone} onChange={update} required inputMode="tel" placeholder="98765 43210" /></label>
-            <label>PIN code<input name="pincode" value={form.pincode} onChange={update} required inputMode="numeric" placeholder="452001" /></label>
-            <label className="wide">Address<input name="address" value={form.address} onChange={update} required placeholder="House, street, area" /></label>
-            <label>City<input name="city" value={form.city} onChange={update} required placeholder="Indore" /></label>
-            <label>State<input name="state" value={form.state} onChange={update} required placeholder="Madhya Pradesh" /></label>
-          </div>
+      <div className="checkout-shell">
+        <div className="checkout-heading">
+          <button className="checkout-back" type="button" onClick={() => go('/cart')}><ArrowLeft size={16} /> Back to cart</button>
+          <p className="checkout-step">ONE STEP CHECKOUT</p>
+          <h1>Almost yours.</h1>
+          <p>Enter your details, review your total, and pay securely.</p>
+        </div>
 
-          <h2>Delivery</h2>
-          <label className="radio"><input type="radio" defaultChecked /> Standard delivery <b>{shipping ? format(shipping) : 'FREE'}</b></label>
+        <div className="checkout-grid">
+          <form className="checkout-form" onSubmit={payNow}>
+            <section className="checkout-section" aria-labelledby="checkout-contact-title">
+              <div className="checkout-section-heading">
+                <span className="checkout-section-number">01</span>
+                <div><h2 id="checkout-contact-title">Contact details</h2><p>We’ll use these for your order and delivery updates.</p></div>
+              </div>
+              <div className="checkout-fields">
+                <label className="checkout-field checkout-field-wide" htmlFor="checkout-name">Full name
+                  <input id="checkout-name" name="name" value={form.name} onChange={update} required minLength="2" autoComplete="name" placeholder="As on your delivery address" />
+                </label>
+                <label className="checkout-field" htmlFor="checkout-email">Email address
+                  <input id="checkout-email" name="email" value={form.email} onChange={update} required type="email" autoComplete="email" placeholder="you@example.com" />
+                </label>
+                <label className="checkout-field" htmlFor="checkout-phone">Mobile number
+                  <input id="checkout-phone" name="phone" value={form.phone} onChange={update} required type="tel" inputMode="numeric" pattern="[0-9]{10}" maxLength="10" title="Enter a 10-digit mobile number" autoComplete="tel-national" placeholder="10-digit mobile number" />
+                </label>
+              </div>
+            </section>
 
-          {error && <p className="checkout-error">{error}</p>}
+            <section className="checkout-section" aria-labelledby="checkout-delivery-title">
+              <div className="checkout-section-heading">
+                <span className="checkout-section-number">02</span>
+                <div><h2 id="checkout-delivery-title">Delivery address</h2><p>Where should we send your Collector’s Box?</p></div>
+              </div>
+              <div className="checkout-fields">
+                <label className="checkout-field checkout-field-wide" htmlFor="checkout-address">House number, street and area
+                  <input id="checkout-address" name="address" value={form.address} onChange={update} required minLength="5" autoComplete="street-address" placeholder="Flat / house, street, area" />
+                </label>
+                <label className="checkout-field" htmlFor="checkout-city">City
+                  <input id="checkout-city" name="city" value={form.city} onChange={update} required minLength="2" autoComplete="address-level2" placeholder="Your city" />
+                </label>
+                <label className="checkout-field" htmlFor="checkout-state">State
+                  <input id="checkout-state" name="state" value={form.state} onChange={update} required minLength="2" autoComplete="address-level1" placeholder="Your state" />
+                </label>
+                <label className="checkout-field checkout-field-pin" htmlFor="checkout-pincode">PIN code
+                  <input id="checkout-pincode" name="pincode" value={form.pincode} onChange={update} required inputMode="numeric" pattern="[0-9]{6}" maxLength="6" title="Enter a 6-digit PIN code" autoComplete="postal-code" placeholder="6-digit PIN code" />
+                </label>
+              </div>
+              <div className="checkout-delivery-note"><Truck size={20} aria-hidden="true" /><div><b>Standard delivery is free</b><span>Dispatch and tracking updates will be sent to your contact details.</span></div></div>
+            </section>
 
-          <button className="pay-now-btn" type="submit" disabled={loading || !canPay || !qty}>
-            {loading ? <><Loader2 className="spin" size={19} /> Processing...</> : <>PAY {format(total)} WITH RAZORPAY <ArrowRight size={19} /></>}
-          </button>
-          <small>Payments are processed by Razorpay. Card, UPI, and netbanking details are handled by the payment provider, not stored by this storefront.</small>
-          <ul className="checkout-assurance">
-            <li>Order total reviewed before payment</li>
-            <li>Payment signature verified after checkout</li>
-            <li>Support available at {SITE.supportEmail}</li>
-          </ul>
-        </form>
+            <section className="checkout-payment" aria-labelledby="checkout-payment-title">
+              <div className="checkout-section-heading">
+                <span className="checkout-section-number">03</span>
+                <div><h2 id="checkout-payment-title">Secure payment</h2><p>Review your order total before opening Razorpay.</p></div>
+              </div>
+              <div className="checkout-pay-total"><span>Total to pay</span><strong>{format(total)}</strong></div>
+              {error && <p className="checkout-error" role="alert">{error}</p>}
+              {pendingPayment && <button className="checkout-retry-btn" type="button" onClick={retryConfirmation} disabled={loading}>
+                {loading ? <><Loader2 className="spin" size={18} /> Checking payment…</> : <>Retry payment confirmation <ArrowRight size={18} /></>}
+              </button>}
+              {!pendingPayment && <button className="pay-now-btn" type="submit" disabled={loading}>
+                {loading ? <><Loader2 className="spin" size={19} /> Opening payment…</> : <><LockKeyhole size={18} /> Pay {format(total)} securely <ArrowRight size={18} /></>}
+              </button>}
+              <p className="checkout-payment-help"><ShieldCheck size={16} aria-hidden="true" /> Payments are handled by Razorpay. We don’t store your card or UPI details.</p>
+              <p className="checkout-terms">By paying, you agree to our <a href="#/terms">Terms of Service</a> and <a href="#/privacy">Privacy Policy</a>.</p>
+            </section>
+          </form>
 
-        <aside className="summary-card checkout-summary-card">
-          <p className="eyebrow">Order total</p>
-          <div><span>{PRODUCT.shortName} x {qty}</span><b>{format(subtotal)}</b></div>
-          <div><span>Shipping</span><b>{shipping ? format(shipping) : 'FREE'}</b></div>
-          <div className="total"><span>Total</span><b>{format(total)}</b></div>
-          {!qty && <button onClick={() => go(PRODUCT_PATH)}>Add pre-order first</button>}
-        </aside>
-      </section>
+          <aside className="checkout-order" aria-label="Order summary">
+            <div className="checkout-order-head"><h2>Your order</h2><span>{qty} {qty === 1 ? 'item' : 'items'}</span></div>
+            <div className="checkout-order-product">
+              <img src={BOX_ITEMS[1].src} alt={PRODUCT.name} />
+              <div><p>{PRODUCT.category}</p><h3>{PRODUCT.name}</h3><strong>{format(PRODUCT.price)}</strong></div>
+            </div>
+            <div className="checkout-quantity-row">
+              <span>Quantity</span>
+              <div className="checkout-quantity" role="group" aria-label="Quantity">
+                <button type="button" aria-label="Decrease quantity" disabled={loading || Boolean(pendingPayment) || qty <= 1} onClick={() => setQty(PRODUCT.id, qty - 1)}><Minus size={15} /></button>
+                <span>{qty}</span>
+                <button type="button" aria-label="Increase quantity" disabled={loading || Boolean(pendingPayment) || qty >= MAX_ORDER_QUANTITY} onClick={() => setQty(PRODUCT.id, qty + 1)}><Plus size={15} /></button>
+              </div>
+            </div>
+            <div className="checkout-costs">
+              <div><span>Subtotal</span><strong>{format(subtotal)}</strong></div>
+              <div><span>Shipping</span><strong className="checkout-free">FREE</strong></div>
+              <div className="checkout-cost-total"><span>Total</span><strong>{format(total)}</strong></div>
+            </div>
+            <p className="checkout-order-note"><ShieldCheck size={17} aria-hidden="true" /> No surprise fees at payment.</p>
+          </aside>
+        </div>
+      </div>
     </main>
   );
 }

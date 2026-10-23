@@ -38,9 +38,9 @@ export const BOX_ITEMS = [
     src: '/assets/gamibng.png'
   },
   {
-    name: "Collector's artwork",
-    detail: 'Premium GTA-inspired artwork for the box reveal.',
-    src: '/assets/Gta_VI.png'
+    name: "Collector's Box",
+    detail: "A closer look at the Collector's Edition box.",
+    src: '/assets/Gta-box.webp'
   },
   {
     name: 'Display lamp',

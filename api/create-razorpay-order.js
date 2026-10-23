@@ -41,6 +41,7 @@ export default async function handler(req, res) {
         name: clean(customer.name),
         email: clean(customer.email),
         phone: clean(customer.phone),
+        address: clean(customer.address),
         pincode: clean(customer.pincode),
         city: clean(customer.city),
         state: clean(customer.state)

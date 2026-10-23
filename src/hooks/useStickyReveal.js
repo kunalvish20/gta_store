@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-export function useStickyReveal(offset = 420) {
+export function useStickyReveal(offset = 420, hideWhenVisibleSelector = null) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -9,7 +9,9 @@ export function useStickyReveal(offset = 420) {
     const update = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        setVisible(window.scrollY > offset);
+        const hideTarget = hideWhenVisibleSelector && document.querySelector(hideWhenVisibleSelector);
+        const targetInView = hideTarget && hideTarget.getBoundingClientRect().top < window.innerHeight;
+        setVisible(window.scrollY > offset && !targetInView);
       });
     };
 
@@ -22,7 +24,7 @@ export function useStickyReveal(offset = 420) {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
     };
-  }, [offset]);
+  }, [offset, hideWhenVisibleSelector]);
 
   return visible;
 }
