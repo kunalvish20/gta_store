@@ -3,7 +3,7 @@ import {FAQ_ITEMS} from './faq.js';
 import {INFO_PAGES} from './infoPages.js';
 import {format} from '../lib/format.js';
 
-export const INDEXABLE_PATHS = ['/', PRODUCT_PATH, ...Object.keys(INFO_PAGES).map(path => `/${path}`)];
+export const INDEXABLE_PATHS = ['/', PRODUCT_PATH, '/join-as-a-creator', ...Object.keys(INFO_PAGES).map(path => `/${path}`)];
 
 export function getSeoPage(path) {
   const url = `${SITE.origin}${path}`;
@@ -61,6 +61,10 @@ export function getSeoPage(path) {
         acceptedAnswer: {'@type': 'Answer', text: answer}
       }))
     });
+  } else if (path === '/join-as-a-creator') {
+    title = `Join as a Creator | ${SITE.name}`;
+    description = `Share your Instagram or YouTube channel to explore creator, promoter, or seller opportunities with ${SITE.name}.`;
+    heading = 'Join as a Creator';
   } else if (INFO_PAGES[path.slice(1)]) {
     const page = INFO_PAGES[path.slice(1)];
     title = `${page.title} | ${SITE.name}`;

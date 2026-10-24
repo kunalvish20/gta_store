@@ -9,6 +9,7 @@
   ],
   "rewrites": [
     {"source": "/product/gta-collector-box", "destination": "/_seo/product.html"},
+    {"source": "/join-as-a-creator", "destination": "/_seo/join-as-a-creator.html"},
     {"source": "/shipping", "destination": "/_seo/shipping.html"},
     {"source": "/privacy", "destination": "/_seo/privacy.html"},
     {"source": "/contact", "destination": "/_seo/contact.html"},

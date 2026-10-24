@@ -76,6 +76,15 @@ export function Footer() {
         </section>
       </div>
 
+      <div className="footer-creator">
+        <div>
+          <span>CREATE WITH DND</span>
+          <h3>Have an audience? Let's make something together.</h3>
+          <p>Creators, promoters, and sellers can share their Instagram or YouTube links with us.</p>
+        </div>
+        <a href="/join-as-a-creator">Join as a Creator <ArrowUpRight size={19} aria-hidden="true" /></a>
+      </div>
+
       <nav className="footer-links" aria-label="Footer navigation">
         {footerGroups.map(group => (
           <section key={group.title}>

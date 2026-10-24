@@ -57,7 +57,7 @@ function renderFaq() {
 function renderFallback(page) {
   let content = `<h1>${escapeHtml(page.heading)}</h1><p>${escapeHtml(page.description)}</p>`;
   if (page.path === '/' || page.path === PRODUCT_PATH) {
-    content += `<p>Pre-order price: ${escapeHtml(format(PRODUCT.price))}. The box includes 9 Collector's Edition items. Standard delivery is free.</p>`;
+    content += `<p>Pre-order price: ${escapeHtml(format(PRODUCT.price))}. The box includes 11 Collector's Edition items. Standard delivery is free.</p>`;
     content += `<a href="${PRODUCT_PATH}">Explore the Collector's Box</a>`;
     if (page.path === PRODUCT_PATH) {
       content += `<h2>Inside the box</h2><ul>${PRODUCT.highlights.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;

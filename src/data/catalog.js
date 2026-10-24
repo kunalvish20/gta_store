@@ -3,6 +3,7 @@ export const SITE = {
   shortName: 'DND',
   origin: 'https://dndstores.com',
   supportEmail: '',
+  creatorEmail: 'workdndstores@gmail.com',
   supportPhone: '',
   supportHours: 'Mon-Sat, 10 AM-7 PM IST'
 };

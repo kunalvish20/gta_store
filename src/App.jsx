@@ -9,6 +9,7 @@ import {PRODUCT_PATH} from './data/catalog';
 import {useRoute} from './hooks/useRoute';
 import {Cart} from './pages/Cart';
 import {Checkout} from './pages/Checkout';
+import {CreatorPage} from './pages/CreatorPage';
 import {Home} from './pages/Home';
 import {HomeSecondary} from './pages/HomeSecondary';
 import {InfoPage} from './pages/InfoPage';
@@ -22,6 +23,7 @@ function RouteView() {
   if (route === PRODUCT_PATH || route.startsWith('/product/')) return <ProductPage />;
   if (route === '/cart') return <Cart />;
   if (route === '/checkout') return <Checkout />;
+  if (route === '/join-as-a-creator') return <CreatorPage />;
   if (route === '/returns' || route === '/cancellation') return <InfoPage type="terms" />;
   if (['/shipping', '/privacy', '/contact', '/terms', '/payment', '/order-status', '/warranty'].includes(route)) return <InfoPage type={route.slice(1)} />;
 
