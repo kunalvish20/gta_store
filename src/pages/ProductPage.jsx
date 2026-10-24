@@ -48,7 +48,7 @@ export function ProductPage() {
     <main className="product-page preorder-product-page ecommerce-product-page">
       <section className="ecom-product-hero" aria-labelledby="product-title">
         <nav className="product-breadcrumbs" aria-label="Breadcrumb">
-          <a href="#/">Home</a><ChevronRight size={12} />
+          <a href="/">Home</a><ChevronRight size={12} />
           <span>Collector's Edition</span><ChevronRight size={12} />
           <span aria-current="page">{PRODUCT.shortName}</span>
         </nav>
@@ -120,7 +120,7 @@ export function ProductPage() {
             <div className="product-service-strip">
               <span><Truck size={19} /><b>Free delivery</b></span>
               <span><PackageCheck size={19} /><b>Protective packing</b></span>
-              <a href="#/contact"><ShieldCheck size={19} /><b>Order support</b></a>
+              <a href="/contact"><ShieldCheck size={19} /><b>Order support</b></a>
             </div>
 
             <ul className="product-buy-benefits">

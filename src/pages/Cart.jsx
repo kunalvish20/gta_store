@@ -66,7 +66,7 @@ function OrderSummary({subtotal, shipping}) {
       <div><span>Shipping</span><b>{shipping ? format(shipping) : 'FREE'}</b></div>
       <div className="total"><span>Total</span><b>{format(subtotal + shipping)}</b></div>
       <button onClick={() => go('/checkout')}>Continue to Checkout <ArrowRight size={18} /></button>
-      <a href={`#${PRODUCT_PATH}`}>Back to product</a>
+      <a href={PRODUCT_PATH}>Back to product</a>
     </aside>
   );
 }

@@ -1,7 +1,20 @@
+@font-face {
+  font-family: 'Outfit Numerals';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtq.woff2') format('woff2');
+  unicode-range: U+0030-0039;
+}
+
+@media (min-width: 821px) {
+  :root { --desktop-digit-font: 'Outfit Numerals'; }
+}
+
 :root {
   color: #fff;
   background: #050505;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-synthesis: none;
   --bg: #050505;
   --panel: #101013;
@@ -18,6 +31,12 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--bg); }
+.seo-fallback { width: min(900px, 100%); min-height: 100vh; margin: auto; padding: 112px 24px 72px; line-height: 1.6; }
+.seo-fallback h1 { margin: 0 0 18px; font-size: clamp(32px, 5vw, 56px); line-height: 1.1; }
+.seo-fallback h2 { margin-top: 38px; }
+.seo-fallback h3 { margin-bottom: 4px; }
+.seo-fallback p { max-width: 70ch; }
+.seo-fallback a { color: #ff9bcf; }
 button, input { font: inherit; }
 button { cursor: pointer; color: inherit; }
 a { color: inherit; }
@@ -46,7 +65,7 @@ img { max-width: 100%; }
   padding: 0;
   background: transparent;
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 1;
@@ -56,7 +75,7 @@ img { max-width: 100%; }
 
 .brand-mark {
   padding-right: .08em;
-  font-family: "Arial Black", Arial, Helvetica, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 1.08em;
   font-weight: 900;
   font-style: italic;
@@ -301,10 +320,14 @@ img { max-width: 100%; }
 .hero-copy, .hero-product { position: relative; z-index: 1; }
 .hero h1, .buy-card h1, .section-title h2, .home-product h2, .faq h2, .page-hero h1, .empty h1, .info-static h2 {
   margin: 14px 0;
-  font-family: Anton, Impact, sans-serif;
+  font-family: var(--desktop-digit-font, Anton), Anton, Impact, sans-serif;
   font-weight: 400;
   letter-spacing: 0;
   line-height: .9;
+}
+
+.buy-card h1, .section-title h2, .home-product h2, .faq h2, .page-hero h1, .empty h1, .info-static h2 {
+  font-family: Outfit, Arial, Helvetica, sans-serif;
 }
 
 .hero h1 { max-width: 620px; font-size: clamp(58px, 9vw, 130px); }
@@ -617,7 +640,7 @@ img { max-width: 100%; }
   height: 54px;
   margin-top: 18px;
   color: #ff5aa8;
-  font-family: Georgia, serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 94px;
   line-height: 1;
 }
@@ -625,7 +648,7 @@ img { max-width: 100%; }
 .secondary-testimonial-card blockquote {
   margin: 14px 0 32px;
   color: #f8eef4;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: clamp(18px, 1.65vw, 23px);
   font-weight: 600;
   line-height: 1.48;
@@ -1125,7 +1148,8 @@ img { max-width: 100%; }
   white-space: nowrap;
   transition: background .18s ease, transform .18s ease;
 }
-.footer-newsletter button:hover { background: #571450; transform: translateY(-1px); }
+.footer-newsletter button:hover:not(:disabled) { background: #571450; transform: translateY(-1px); }
+.footer-newsletter button:disabled { opacity: .6; cursor: not-allowed; }
 .footer-newsletter button:focus-visible { outline: 2px solid #350e3a; outline-offset: 2px; }
 .footer-newsletter-note { min-height: 17px; margin: 6px 0 0; color: #ffe9ee; font-size: 11px; }
 .footer-meta {
@@ -1260,7 +1284,7 @@ img { max-width: 100%; }
   --vice-line: rgba(255, 76, 178, .26);
   background: var(--vice-black);
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
 }
 
 .secondary-page h1,
@@ -1271,7 +1295,7 @@ img { max-width: 100%; }
 .preorder-product-page h3,
 .secondary-preorder-btn,
 .secondary-sticky-preorder button {
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   letter-spacing: .02em;
 }
@@ -1686,7 +1710,7 @@ img { max-width: 100%; }
 }
 
 .secondary-price b {
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 34px;
   font-weight: 400;
 }
@@ -2033,7 +2057,7 @@ img { max-width: 100%; }
 .preorder-main-price {
   display: block;
   margin-top: 6px;
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 38px;
   font-weight: 400;
 }
@@ -2421,7 +2445,7 @@ body.drawer-lock { overflow: hidden; }
 
 .cart-drawer-head h2 {
   margin: 8px 0 0;
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: 42px;
   line-height: .9;
   text-transform: uppercase;
@@ -2583,7 +2607,7 @@ body.drawer-lock { overflow: hidden; }
 
 .checkout-success-card h1 {
   margin: 12px 0;
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: Outfit, Arial, Helvetica, sans-serif;
   font-size: clamp(48px, 8vw, 88px);
   line-height: .88;
   text-transform: uppercase;

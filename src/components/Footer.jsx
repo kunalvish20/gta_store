@@ -7,24 +7,24 @@ const footerGroups = [
   {
     title: 'Shop',
     links: [
-      ["Collector's Box", `#${PRODUCT_PATH}`],
-      ['Cart', '#/cart']
+      ["Collector's Box", PRODUCT_PATH],
+      ['Cart', '/cart']
     ]
   },
   {
     title: 'Help',
     links: [
-      ['Contact', '#/contact'],
-      ['Shipping & Delivery', '#/shipping'],
-      ['Track Order', '#/order-status']
+      ['Contact', '/contact'],
+      ['Shipping & Delivery', '/shipping'],
+      ['Track Order', '/order-status']
     ]
   },
   {
     title: 'Legal',
     links: [
-      ['Terms', '#/terms'],
-      ['Privacy', '#/privacy'],
-      ['Payment Security', '#/payment']
+      ['Terms', '/terms'],
+      ['Privacy', '/privacy'],
+      ['Payment Security', '/payment']
     ]
   }
 ];
@@ -36,6 +36,7 @@ export function Footer() {
     event.preventDefault();
     const email = new FormData(event.currentTarget).get('newsletter-email')?.toString().trim();
     if (!email) return;
+    if (!SITE.supportEmail) return;
 
     const subject = encodeURIComponent(`${SITE.name} newsletter request`);
     const body = encodeURIComponent(`Please add ${email} to the newsletter for GTA VI Collector's Box updates.`);
@@ -67,10 +68,10 @@ export function Footer() {
           <form onSubmit={requestNewsletter}>
             <label htmlFor="footer-newsletter-email">Email address</label>
             <div className="footer-newsletter-control">
-              <input id="footer-newsletter-email" name="newsletter-email" type="email" autoComplete="email" placeholder="you@example.com" required />
-              <button type="submit">Join <ArrowUpRight size={17} aria-hidden="true" /></button>
+              <input id="footer-newsletter-email" name="newsletter-email" type="email" autoComplete="email" placeholder="you@example.com" required disabled={!SITE.supportEmail} />
+              <button type="submit" disabled={!SITE.supportEmail}>Join <ArrowUpRight size={17} aria-hidden="true" /></button>
             </div>
-            <p className="footer-newsletter-note" role="status">{newsletterMessage || 'Opens your email app to request updates.'}</p>
+            <p className="footer-newsletter-note" role="status">{newsletterMessage || (SITE.supportEmail ? 'Opens your email app to request updates.' : 'Email updates will be available soon.')}</p>
           </form>
         </section>
       </div>
@@ -89,8 +90,8 @@ export function Footer() {
       </nav>
 
       <div className="footer-meta">
-        <small>&copy; {new Date().getFullYear()} {SITE.name}. Independent merchandise store.</small>
-        <a href={`mailto:${SITE.supportEmail}`}><Mail size={16} aria-hidden="true" /> {SITE.supportEmail}</a>
+        <small>&copy; {new Date().getFullYear()} {SITE.name}.</small>
+        {SITE.supportEmail && <a href={`mailto:${SITE.supportEmail}`}><Mail size={16} aria-hidden="true" /> {SITE.supportEmail}</a>}
       </div>
     </footer>
   );

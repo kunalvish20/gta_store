@@ -249,9 +249,10 @@
   }
 
   .secondary-hero-logo-main { gap: .14em; font-size: clamp(65px, 7vw, 101px); line-height: .9; }
-  .secondary-hero-logo-edition { margin-top: 2px; font-size: clamp(29px, 3.55vw, 50px); line-height: .88; }
-  .secondary-hero .secondary-kicker { margin-left: clamp(14px, 1.8vw, 26px); font-size: 11px; letter-spacing: .18em; }
-  .secondary-hero .secondary-hero-stock { margin-top: 5px; font-size: 12px; }
+  .secondary-hero-logo-main > span:first-child { letter-spacing: -.045em; }
+  .secondary-hero-logo-edition { margin-top: 4px; font-size: clamp(29px, 3.55vw, 50px); letter-spacing: -.05em; line-height: .98; }
+  .secondary-hero .secondary-kicker { font-size: 11px; line-height: 1.2; letter-spacing: .18em; }
+  .secondary-hero .secondary-hero-stock { margin-top: 6px; font-size: 12px; line-height: 1.2; }
 
   .secondary-hero .secondary-box-stage { min-height: clamp(504px, 50vw, 648px); }
   .secondary-hero .secondary-box { --box-w: clamp(378px, 40vw, 540px); }

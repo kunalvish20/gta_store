@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {"source": "/home", "destination": "/", "permanent": true},
+    {"source": "/homepage-secondary", "destination": "/", "permanent": true},
+    {"source": "/home-secondary", "destination": "/", "permanent": true},
+    {"source": "/returns", "destination": "/terms", "permanent": true},
+    {"source": "/cancellation", "destination": "/terms", "permanent": true}
+  ],
+  "rewrites": [
+    {"source": "/product/gta-collector-box", "destination": "/_seo/product.html"},
+    {"source": "/shipping", "destination": "/_seo/shipping.html"},
+    {"source": "/privacy", "destination": "/_seo/privacy.html"},
+    {"source": "/contact", "destination": "/_seo/contact.html"},
+    {"source": "/terms", "destination": "/_seo/terms.html"},
+    {"source": "/payment", "destination": "/_seo/payment.html"},
+    {"source": "/order-status", "destination": "/_seo/order-status.html"},
+    {"source": "/warranty", "destination": "/_seo/warranty.html"},
+    {"source": "/cart", "destination": "/_seo/cart.html"},
+    {"source": "/checkout", "destination": "/_seo/checkout.html"},
+    {"source": "/old-homepage", "destination": "/index.html"},
+    {"source": "/old-home", "destination": "/index.html"}
+  ]
+}

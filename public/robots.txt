@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /_seo/
 
-Sitemap: https://gta-store.example.com/sitemap.xml
+Sitemap: https://dndstores.com/sitemap.xml

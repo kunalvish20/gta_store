@@ -1,9 +1,9 @@
 export const SITE = {
   name: 'DND Store',
   shortName: 'DND',
-  origin: 'https://gta-store.example.com',
-  supportEmail: 'support@gta-store.example.com',
-  supportPhone: '+91 98765 43210',
+  origin: 'https://dndstores.com',
+  supportEmail: '',
+  supportPhone: '',
   supportHours: 'Mon-Sat, 10 AM-7 PM IST'
 };
 

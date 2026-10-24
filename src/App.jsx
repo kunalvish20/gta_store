@@ -1,8 +1,8 @@
-import {useState} from 'react';
 import {CartDrawer} from './components/CartDrawer';
 import {Footer} from './components/Footer';
 import {Header} from './components/Header';
 import {IntroLoader} from './components/IntroLoader';
+import {SeoHead} from './components/SeoHead';
 import {StoreProvider} from './context/StoreContext';
 import {PRODUCT_PATH} from './data/catalog';
 import {useRoute} from './hooks/useRoute';
@@ -28,19 +28,16 @@ function RouteView() {
 }
 
 export function App() {
-  const [showContent, setShowContent] = useState(false);
-
   return (
     <>
-      <IntroLoader onComplete={() => setShowContent(true)} />
-      {showContent && (
-        <StoreProvider>
-          <Header />
-          <RouteView />
-          <Footer />
-          <CartDrawer />
-        </StoreProvider>
-      )}
+      <SeoHead />
+      <IntroLoader />
+      <StoreProvider>
+        <Header />
+        <RouteView />
+        <Footer />
+        <CartDrawer />
+      </StoreProvider>
     </>
   );
 }

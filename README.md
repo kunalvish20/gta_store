@@ -2,11 +2,17 @@
 
 Routes:
 
-- `#/homepage-secondary` - magenta/black rotating-box landing page
-- `#/product/gta-collector-box` - image-first product page
-- `#/checkout` - Razorpay checkout flow
+- `/` - rotating-box landing page
+- `/product/gta-collector-box` - product page
+- `/checkout` - Razorpay checkout flow (`noindex`)
 - `/robots.txt` - crawler rules
-- `/sitemap.xml` - storefront sitemap
+- `/sitemap.xml` - canonical, indexable routes on `https://dndstores.com`
+
+The build generates page-specific HTML in `dist/_seo/` with titles, descriptions,
+canonical URLs, social metadata, visible summary content, and JSON-LD. Vercel
+rewrites clean URLs to those pages. Older `#/...` links are upgraded in the
+browser. Update `SITE.origin`, `public/sitemap.xml`, and `public/robots.txt`
+together if the production domain changes.
 
 ## Run locally
 
