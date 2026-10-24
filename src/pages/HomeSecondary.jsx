@@ -27,7 +27,7 @@ const TESTIMONIAL_PREVIEW = [
   }
 ];
 
-const MARQUEE_ITEMS = ['LIMITED STOCK', "EXCLUSIVE COLLECTOR'S BOX"];
+const MARQUEE_ITEMS = ['LIMITED BOX', "EXCLUSIVE COLLECTOR'S BOX"];
 
 function applyBoxRotation(element, {pitch, yaw}) {
   element.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;

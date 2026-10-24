@@ -65,7 +65,7 @@ export function ProductPage() {
               onTouchCancel={() => { touchStart.current = null; }}
             >
               <ProductArt item={current} large priority={active === 0} />
-              <span className="product-gallery-badge"><PackageCheck size={14} /> 9 ITEMS. ONE BOX.</span>
+              <span className="product-gallery-badge"><PackageCheck size={14} /> {BOX_ITEMS.length} ITEMS. ONE BOX.</span>
               <div className="product-gallery-caption">
                 <span>{current.name}</span>
                 <span aria-hidden="true">{String(active + 1).padStart(2, '0')} / {String(BOX_ITEMS.length).padStart(2, '0')}</span>
@@ -77,12 +77,12 @@ export function ProductPage() {
 
             <div className="product-gallery-thumbnails" role="group" aria-label="Choose a product image">
               {BOX_ITEMS.map((item, index) => (
-                <button key={item.src} className={active === index ? 'active' : ''} onClick={() => setActive(index)} aria-label={`Show ${item.name}`} aria-pressed={active === index}>
-                  <img src={item.src} alt="" className={item.contain ? 'contain' : ''} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+                <button key={item.name} className={active === index ? 'active' : ''} onClick={() => setActive(index)} aria-label={`Show ${item.name}`} aria-pressed={active === index}>
+                  {item.src ? <img src={item.src} alt="" className={item.contain ? 'contain' : ''} loading={index < 2 ? 'eager' : 'lazy'} decoding="async" /> : <span className="product-thumb-pending" aria-hidden="true">Preview soon</span>}
                 </button>
               ))}
             </div>
-            <p className="product-gallery-note"><PackageCheck size={14} /> Browse all nine pieces. Swipe the thumbnails to see more.</p>
+            <p className="product-gallery-note"><PackageCheck size={14} /> Browse all 11 pieces. Swipe the thumbnails to see more.</p>
           </div>
 
           <div className="product-purchase-panel">
@@ -96,9 +96,9 @@ export function ProductPage() {
 
             <div className="product-price-block">
               <div className="product-price-line"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s><span>Free standard delivery</span></div>
-              <p>One Collector's Box. All 9 items included.</p>
+              <p>One Collector's Box. All 11 items included.</p>
             </div>
-            <p className="product-intro">Bring the Vice City mood to your setup and beyond. The box brings together apparel, accessories, artwork, and a display lamp in one nine-piece drop.</p>
+            <p className="product-intro">Bring the Vice City mood to your setup and beyond. The box brings together apparel, accessories, artwork, and a display lamp in one 11-piece drop.</p>
 
             <div className="product-quantity-row">
               <label htmlFor="product-quantity">Quantity<small id="product-quantity-limit">Max {MAX_ORDER_QUANTITY} per order</small></label>
@@ -124,7 +124,7 @@ export function ProductPage() {
             </div>
 
             <ul className="product-buy-benefits">
-              <li><Check size={16} /> 9 Collector's Edition pieces in one box</li>
+              <li><Check size={16} /> 11 Collector's Edition pieces in one box</li>
               <li><Check size={16} /> Protective packing for your collection</li>
               <li><Check size={16} /> Tracking updates after dispatch</li>
             </ul>
@@ -142,7 +142,7 @@ export function ProductPage() {
       </section>
 
       <section className="product-detail-band">
-        <article><span>01</span><b>See every piece</b><p>Browse images and details for all nine pieces in the Collector's Box.</p></article>
+        <article><span>01</span><b>See every piece</b><p>Browse images and details for all 11 pieces in the Collector's Box.</p></article>
         <article><span>02</span><b>Review before payment</b><p>Check your quantity, subtotal, and free standard delivery in your cart before checkout.</p></article>
         <article><span>03</span><b>Support for your order</b><p>Delivery updates and clear support links keep you informed from pre-order to dispatch.</p></article>
       </section>

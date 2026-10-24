@@ -30,11 +30,11 @@ export function getSeoPage(path) {
 
   if (path === '/') {
     title = "GTA VI Collector's Box Pre-Order | DND Store";
-    description = "Explore the 9-item GTA VI Collector's Box, preview featured collectibles, and pre-order with secure Razorpay checkout and free standard delivery.";
+    description = "Explore the 11-item GTA VI Collector's Box, preview featured collectibles, and pre-order with secure Razorpay checkout and free standard delivery.";
     heading = "GTA VI Collector's Edition";
   } else if (path === PRODUCT_PATH) {
     title = `${PRODUCT.name} | Pre-Order for ${format(PRODUCT.price)} | ${SITE.name}`;
-    description = `Pre-order the 9-item ${PRODUCT.name} for ${format(PRODUCT.price)}. Explore the featured items, review delivery details, and check out securely with Razorpay.`;
+    description = `Pre-order the 11-item ${PRODUCT.name} for ${format(PRODUCT.price)}. Explore the featured items, review delivery details, and check out securely with Razorpay.`;
     heading = PRODUCT.name;
     graph.push({
       '@type': 'Product',

@@ -193,7 +193,7 @@ export function Checkout() {
           <aside className="checkout-order" aria-label="Order summary">
             <div className="checkout-order-head"><h2>Your order</h2><span>{qty} {qty === 1 ? 'item' : 'items'}</span></div>
             <div className="checkout-order-product">
-              <img src={BOX_ITEMS[1].src} alt={PRODUCT.name} />
+              <img src={BOX_ITEMS[0].src} alt={PRODUCT.name} />
               <div><p>{PRODUCT.category}</p><h3>{PRODUCT.name}</h3><strong>{format(PRODUCT.price)}</strong></div>
             </div>
             <div className="checkout-quantity-row">
