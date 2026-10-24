@@ -142,7 +142,7 @@ export function ProductPage() {
       </section>
 
       <section className="product-detail-band">
-        <article><span>01</span><b>See the collection</b><p>Explore five featured collectibles in the image gallery before choosing your box.</p></article>
+        <article><span>01</span><b>See the collection</b><p>Browse all nine item slots below. More product images and details will be added as they are confirmed.</p></article>
         <article><span>02</span><b>Review before payment</b><p>Check your quantity, subtotal, and free standard delivery in your cart before checkout.</p></article>
         <article><span>03</span><b>Support for your order</b><p>Delivery updates and clear support links keep you informed from pre-order to dispatch.</p></article>
       </section>
