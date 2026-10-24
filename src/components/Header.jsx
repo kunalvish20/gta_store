@@ -1,4 +1,4 @@
-import {Menu, ShoppingBag, X} from 'lucide-react';
+import {ShoppingBag} from 'lucide-react';
 import {useEffect, useRef, useState} from 'react';
 import {PRODUCT, PRODUCT_PATH} from '../data/catalog';
 import {BrandLogo} from './BrandLogo';
@@ -78,18 +78,17 @@ export function Header() {
             aria-expanded={open}
             onClick={() => setOpen(value => !value)}
           >
-            <Menu className="menu-icon menu-icon-open" size={20} aria-hidden="true" />
-            <X className="menu-icon menu-icon-close" size={20} aria-hidden="true" />
+            <span className="menu-glyph" aria-hidden="true"><span /><span /><span /></span>
           </button>
         </div>
       </header>
       <div className={`mobile-menu-backdrop ${open ? 'is-open' : ''}`} aria-hidden="true" onClick={() => setOpen(false)} />
-      <div id="site-mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`} aria-hidden={!open} inert={!open}>
+      <nav id="site-mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!open} inert={!open}>
         <b>{PRODUCT.name}</b>
         {links.map(([label, path]) => (
           <button key={label} type="button" onClick={() => navigate(path)}>{label}</button>
         ))}
-      </div>
+      </nav>
     </>
   );
 }

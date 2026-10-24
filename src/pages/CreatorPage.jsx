@@ -24,10 +24,11 @@ const waysToJoin = [
   }
 ];
 
-function isPlatformUrl(value, domains) {
-  if (!value) return true;
+function isSocialUrl(value) {
+  if (!value) return false;
   try {
     const url = new URL(value);
+    const domains = ['instagram.com', 'youtube.com', 'youtu.be'];
     return url.protocol === 'https:' && domains.some(domain => url.hostname === domain || url.hostname.endsWith(`.${domain}`));
   } catch {
     return false;
@@ -48,16 +49,12 @@ export function CreatorPage() {
     const name = String(form.get('name') || '').trim();
     const email = String(form.get('email') || '').trim();
     const interest = String(form.get('interest') || '').trim();
-    const instagram = String(form.get('instagram') || '').trim();
-    const youtube = String(form.get('youtube') || '').trim();
+    const socialLink = String(form.get('socialLink') || '').trim();
+    const secondLink = String(form.get('secondLink') || '').trim();
     const message = String(form.get('message') || '').trim();
 
-    if (!instagram && !youtube) {
-      setError('Add your Instagram or YouTube link to continue.');
-      return;
-    }
-    if (!isPlatformUrl(instagram, ['instagram.com']) || !isPlatformUrl(youtube, ['youtube.com', 'youtu.be'])) {
-      setError('Use full HTTPS links from Instagram or YouTube.');
+    if (!isSocialUrl(socialLink) || (secondLink && !isSocialUrl(secondLink))) {
+      setError('Paste a full Instagram or YouTube link starting with https://.');
       return;
     }
     if (!applicationEmail) {
@@ -70,8 +67,8 @@ export function CreatorPage() {
       `Name: ${name}`,
       `Email: ${email}`,
       `Interested in: ${interest}`,
-      `Instagram: ${instagram || 'Not provided'}`,
-      `YouTube: ${youtube || 'Not provided'}`,
+      `Social link: ${socialLink}`,
+      `Additional link: ${secondLink || 'Not provided'}`,
       '',
       'About my work:',
       message || 'Not provided'
@@ -88,13 +85,55 @@ export function CreatorPage() {
           <div className="creator-hero-copy">
             <p className="creator-eyebrow">DND STORE / CREATOR PROGRAM</p>
             <h1 id="creator-title">JOIN AS A <em>CREATOR.</em></h1>
-            <p className="creator-lead">Your content has a point of view. Bring it to our Collector's Box and explore a partnership as a creator, promoter, or seller.</p>
-            <a className="creator-primary-link" href="#apply">Share your links <ArrowRight size={19} aria-hidden="true" /></a>
-            <p className="creator-hero-note"><Check size={16} aria-hidden="true" /> YouTube or Instagram is all you need to start.</p>
+            <p className="creator-lead">Have an Instagram or YouTube audience? Share your work and explore a partnership as a creator, promoter, or seller.</p>
+            <a className="creator-primary-link" href="#apply">Start your application <ArrowRight size={19} aria-hidden="true" /></a>
+            <p className="creator-hero-note"><Check size={16} aria-hidden="true" /> One social link is enough to get started.</p>
           </div>
+          <form id="apply" className="creator-form" onSubmit={submitApplication} aria-labelledby="creator-form-title">
+            <div className="creator-form-heading">
+              <span>CREATOR / PROMOTER / SELLER</span>
+              <h2 id="creator-form-title">Let's work together.</h2>
+              <p>Tell us where to find your work. It only takes a few details.</p>
+            </div>
+            <fieldset className="creator-interest">
+              <legend>I want to... *</legend>
+              <div className="creator-interest-options">
+                <label><input type="radio" name="interest" value="Create content" required /><span>Create</span></label>
+                <label><input type="radio" name="interest" value="Promote the drop" /><span>Promote</span></label>
+                <label><input type="radio" name="interest" value="Sell the collection" /><span>Sell</span></label>
+              </div>
+            </fieldset>
+            <div className="creator-form-row">
+              <label htmlFor="creator-name">Your name *
+                <input id="creator-name" name="name" type="text" autoComplete="name" maxLength="80" placeholder="Your full name" required />
+              </label>
+              <label htmlFor="creator-email">Email address *
+                <input id="creator-email" name="email" type="email" autoComplete="email" maxLength="120" placeholder="you@example.com" required />
+              </label>
+            </div>
+            <label htmlFor="creator-social"><Camera size={16} aria-hidden="true" /> Instagram or YouTube link *
+              <input id="creator-social" name="socialLink" type="url" inputMode="url" autoComplete="url" placeholder="https://instagram.com/yourname" required onChange={() => setError('')} />
+            </label>
+            <details className="creator-more-fields">
+              <summary>Add another link or a short pitch <span>(optional)</span></summary>
+              <div className="creator-more-fields-inner">
+                <label htmlFor="creator-second-link"><Video size={16} aria-hidden="true" /> Another Instagram or YouTube link
+                  <input id="creator-second-link" name="secondLink" type="text" inputMode="url" placeholder="https://youtube.com/@yourchannel" onChange={() => setError('')} />
+                </label>
+                <label htmlFor="creator-message">Your idea
+                  <textarea id="creator-message" name="message" maxLength="600" rows="3" placeholder="Tell us about your audience, store, or collaboration idea." />
+                </label>
+              </div>
+            </details>
+            {error && <p className="creator-form-feedback is-error" role="alert">{error}</p>}
+            {status && <p className="creator-form-feedback" role="status">{status}</p>}
+            <button className="creator-submit" type="submit" disabled={!applicationEmail}>
+              {applicationEmail ? 'Continue to email' : 'Applications opening soon'} <ArrowRight size={18} aria-hidden="true" />
+            </button>
+            {applicationEmail && <p className="creator-form-hint">We prepare an email to {applicationEmail}. Press send in your email app to complete your application.</p>}
+            <p className="creator-form-privacy">We use your details to review and reply to your enquiry. Read our <a href="/privacy">Privacy Policy</a>.</p>
+          </form>
           <div className="creator-hero-visual" aria-hidden="true">
-            <span className="creator-visual-orbit creator-visual-orbit-one" />
-            <span className="creator-visual-orbit creator-visual-orbit-two" />
             <img src="/assets/collector-box.webp" alt="" width="640" height="640" decoding="async" />
             <span className="creator-visual-caption">ONE BOX. YOUR STORY.</span>
           </div>
@@ -116,64 +155,7 @@ export function CreatorPage() {
             </article>
           ))}
         </div>
-      </section>
-
-      <section className="creator-apply" id="apply" aria-labelledby="creator-apply-title">
-        <div className="creator-apply-inner">
-          <div className="creator-apply-intro">
-            <p className="creator-eyebrow">YOUR NEXT MOVE</p>
-            <h2 id="creator-apply-title">LET'S MAKE <em>IT HAPPEN.</em></h2>
-            <p>Share a link to your Instagram or YouTube and a little about what you would like to do. Creator collaborations, promotions, and seller enquiries are welcome.</p>
-            <div className="creator-apply-steps">
-              <span><b>01</b> Choose how you want to partner</span>
-              <span><b>02</b> Add at least one social link</span>
-              <span><b>03</b> Send your application</span>
-            </div>
-          </div>
-
-          <form className="creator-form" onSubmit={submitApplication}>
-            <div className="creator-form-heading">
-              <span>APPLICATION / 01</span>
-              <h3>Tell us about you.</h3>
-              <p>Fields marked * are required.</p>
-            </div>
-            <div className="creator-form-row">
-              <label htmlFor="creator-name">Your name *
-                <input id="creator-name" name="name" type="text" autoComplete="name" maxLength="80" placeholder="Your full name" required />
-              </label>
-              <label htmlFor="creator-email">Email address *
-                <input id="creator-email" name="email" type="email" autoComplete="email" maxLength="120" placeholder="you@example.com" required />
-              </label>
-            </div>
-            <label htmlFor="creator-interest">I want to *
-              <select id="creator-interest" name="interest" defaultValue="" required>
-                <option value="" disabled>Select an option</option>
-                <option value="Create content">Create content</option>
-                <option value="Promote the drop">Promote the drop</option>
-                <option value="Sell the collection">Sell the collection</option>
-              </select>
-            </label>
-            <div className="creator-form-row">
-              <label htmlFor="creator-instagram"><Camera size={16} aria-hidden="true" /> Instagram link
-                <input id="creator-instagram" name="instagram" type="url" inputMode="url" placeholder="https://instagram.com/yourname" onChange={() => setError('')} />
-              </label>
-              <label htmlFor="creator-youtube"><Video size={17} aria-hidden="true" /> YouTube link
-                <input id="creator-youtube" name="youtube" type="url" inputMode="url" placeholder="https://youtube.com/@yourchannel" onChange={() => setError('')} />
-              </label>
-            </div>
-            <p className="creator-form-hint">Add at least one full Instagram or YouTube URL.</p>
-            <label htmlFor="creator-message">Your idea <span>(optional)</span>
-              <textarea id="creator-message" name="message" maxLength="600" rows="4" placeholder="Tell us about your content, audience, store, or collaboration idea." />
-            </label>
-            <p className="creator-form-privacy">Your details will be used only to review and reply to this enquiry. See our <a href="/privacy">Privacy Policy</a>.</p>
-            {error && <p className="creator-form-feedback is-error" role="alert">{error}</p>}
-            {status && <p className="creator-form-feedback" role="status">{status}</p>}
-            <button className="creator-submit" type="submit" disabled={!applicationEmail}>
-              {applicationEmail ? 'Open application email' : 'Applications opening soon'} <ArrowRight size={18} aria-hidden="true" />
-            </button>
-            {applicationEmail && <p className="creator-form-hint">Your email app opens with a prepared draft. Press send there to finish.</p>}
-          </form>
-        </div>
+        <div className="creator-path-cta"><span>YOUR NEXT COLLAB STARTS HERE.</span><a href="#apply">Share your link <ArrowRight size={17} aria-hidden="true" /></a></div>
       </section>
     </main>
   );
