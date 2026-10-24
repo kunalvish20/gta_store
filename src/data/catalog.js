@@ -66,7 +66,8 @@ export const BOX_ITEMS = [
   {
     name: 'Desk mat',
     heading: 'Set the scene at your desk.',
-    detail: 'A desk mat for your gaming setup. Product image and final design details are coming soon.'
+    detail: 'A large 12 × 32 inch (31 × 82 cm) desk mat with vivid Vice-inspired artwork for your gaming setup.',
+    src: '/assets/desk-mat.webp'
   },
   {
     name: 'Game-case keychain',
