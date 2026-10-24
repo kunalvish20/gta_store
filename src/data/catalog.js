@@ -43,7 +43,7 @@ export const BOX_ITEMS = [
     name: 'Display lamp',
     heading: 'Bring the neon home.',
     detail: 'The VI display lamp puts a bright pink accent on a desk or shelf, with palms and the game logo at the center of the glow.',
-    src: '/assets/lamp_gta-VI.png'
+    src: '/assets/lamp.webp'
   },
   {
     name: 'VI hoodie',
@@ -78,8 +78,8 @@ export const BOX_ITEMS = [
   {
     name: "DND I'm Playing GTA 6 door hanger",
     heading: 'Let the door do the talking.',
-    detail: 'A colorful do-not-disturb door hanger for your gaming space, featuring VI artwork and a playful Vice City message.',
-    src: '/assets/vice-city-door-hanger.webp'
+    detail: 'A colorful do-not-disturb door hanger for your gaming space, featuring VI artwork and an "I am playing GTA VI" message.',
+    src: '/assets/gta-vi-door-hanger.webp'
   },
   {
     name: 'Vice City poster',
