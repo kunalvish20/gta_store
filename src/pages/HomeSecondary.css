@@ -138,9 +138,9 @@
 .secondary-hero-logo-vi {
   display: block;
   flex: 0 0 auto;
-  width: 1.15em;
+  width: 1.04em;
   height: .79em;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .secondary-hero-logo-edition {

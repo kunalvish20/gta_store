@@ -252,16 +252,10 @@ export function HomeSecondary() {
           <h1 id="collector-hero-title" className="secondary-hero-logo">
             <span className="secondary-hero-logo-main">
               <span>GTA</span>
-              <svg className="secondary-hero-logo-vi" viewBox="0 0 146 100" role="img" aria-label="VI">
-                <defs>
-                  <clipPath id="hero-vi-letters">
-                    <path d="M1 1h29l23 73L76 1h29L69 99H37Z" />
-                    <path d="M115 1h30v98h-30z" />
-                  </clipPath>
-                </defs>
-                <image href="/assets/texttbg.png" x="0" y="-23" width="146" height="146" clipPath="url(#hero-vi-letters)" />
-                <path d="M1 1h29l23 73L76 1h29L69 99H37Z" fill="none" stroke="#fff" strokeWidth="2" />
-                <path d="M115 1h30v98h-30z" fill="none" stroke="#fff" strokeWidth="2" />
+              <svg className="secondary-hero-logo-vi" viewBox="0 0 784 600" role="img" aria-label="VI">
+                <path d="M18 13h194l75 171L365 13h176L286 579Z" fill="#0c0711" />
+                <path d="M577 13h192v568H577Z" fill="#0c0711" />
+                <image href="/assets/vi-palm-white.png" width="900" height="600" preserveAspectRatio="none" />
               </svg>
             </span>
             <span className="secondary-hero-logo-edition"><span>COLLECTOR'S</span>{' '}<span>EDITION</span></span>
