@@ -1,5 +1,4 @@
 .creator-page {
-  overflow: hidden;
   background: #070609;
   color: #fff;
   font-family: Outfit, Arial, sans-serif;
@@ -28,9 +27,9 @@
 .creator-hero::after {
   content: '';
   position: absolute;
-  right: -10%;
+  right: 0;
   bottom: -1px;
-  left: -10%;
+  left: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, #ff70b96b, transparent);
 }
@@ -215,6 +214,21 @@
   .creator-path-cta { flex-direction: column; align-items: flex-start; }
 }
 
+@media (max-width: 680px) and (orientation: portrait) {
+  .creator-path-grid { display: block; }
+  .creator-path-card {
+    position: sticky;
+    min-height: 210px;
+    margin-bottom: 16px;
+    border-color: #ff80c43d;
+    box-shadow: 0 16px 36px #0009;
+  }
+  .creator-path-card:nth-child(1) { top: calc(76px + env(safe-area-inset-top)); z-index: 1; }
+  .creator-path-card:nth-child(2) { top: calc(86px + env(safe-area-inset-top)); z-index: 2; }
+  .creator-path-card:nth-child(3) { top: calc(96px + env(safe-area-inset-top)); z-index: 3; }
+  .creator-path-card:last-child { margin-bottom: 0; }
+}
+
 @media (max-width: 390px) {
   .creator-hero h1 { font-size: 43px; }
   .creator-hero-visual { width: 100%; }
@@ -224,4 +238,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .creator-primary-link, .creator-submit, .creator-form input, .creator-form textarea, .creator-interest-options span { transition: none; }
+}
+
+@media (max-width: 680px) and (orientation: portrait) and (prefers-reduced-motion: reduce) {
+  .creator-path-card { position: relative; }
+  .creator-path-card:nth-child(n) { top: auto; }
 }
