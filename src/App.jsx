@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {CartDrawer} from './components/CartDrawer';
 import {Footer} from './components/Footer';
 import {Header} from './components/Header';
@@ -28,16 +29,20 @@ function RouteView() {
 }
 
 export function App() {
+  const [showContent, setShowContent] = useState(false);
+
   return (
     <>
       <SeoHead />
-      <IntroLoader />
-      <StoreProvider>
-        <Header />
-        <RouteView />
-        <Footer />
-        <CartDrawer />
-      </StoreProvider>
+      <IntroLoader onComplete={() => setShowContent(true)} />
+      {showContent && (
+        <StoreProvider>
+          <Header />
+          <RouteView />
+          <Footer />
+          <CartDrawer />
+        </StoreProvider>
+      )}
     </>
   );
 }

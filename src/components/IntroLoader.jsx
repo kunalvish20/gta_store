@@ -12,44 +12,68 @@ export function IntroLoader({onComplete}) {
 
   useGSAP(
     () => {
-      gsap.set('.vi-mask-group', {
-        svgOrigin: '400 300',
-        transformOrigin: '50% 50%'
-      });
+      let cancelled = false;
+      let timeline;
+      let fallbackTimer;
+      const introImage = new Image();
 
       const finish = () => {
-        if (completedRef.current) return;
+        if (cancelled || completedRef.current) return;
         completedRef.current = true;
         setVisible(false);
         onComplete?.();
       };
 
-      if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-        finish();
-        return;
-      }
+      const start = () => {
+        if (cancelled || timeline) return;
+        clearTimeout(fallbackTimer);
 
-      const tl = gsap.timeline({defaults: {transformOrigin: '50% 50%'}});
-
-      tl.to('.vi-mask-group', {
-        rotate: 10,
-        duration: 1.05,
-        ease: 'power4.inOut',
-        svgOrigin: '400 300'
-      }).to('.vi-mask-group', {
-        scale: 10,
-        duration: 1.05,
-        delay: -.9,
-        ease: 'expo.inOut',
-        svgOrigin: '400 300',
-        opacity: 0,
-        onUpdate() {
-          if (this.progress() >= 0.9) {
-            finish();
-            this.kill();
-          }
+        if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+          finish();
+          return;
         }
-      });
+
+        gsap.set('.vi-mask-group', {
+          svgOrigin: '400 300',
+          transformOrigin: '50% 50%'
+        });
+
+        timeline = gsap.timeline({defaults: {transformOrigin: '50% 50%'}});
+
+        timeline.to('.vi-mask-group', {
+          rotate: 10,
+          duration: 1.05,
+          ease: 'power4.inOut',
+          svgOrigin: '400 300'
+        }).to('.vi-mask-group', {
+          scale: 10,
+          duration: 1.05,
+          delay: -.9,
+          ease: 'expo.inOut',
+          svgOrigin: '400 300',
+          opacity: 0,
+          onUpdate() {
+            if (this.progress() >= 0.9) {
+              finish();
+              this.kill();
+            }
+          }
+        });
+      };
+
+      introImage.addEventListener('load', start);
+      introImage.addEventListener('error', start);
+      fallbackTimer = setTimeout(start, 5000);
+      introImage.src = '/bg.png';
+      if (introImage.complete) start();
+
+      return () => {
+        cancelled = true;
+        clearTimeout(fallbackTimer);
+        introImage.removeEventListener('load', start);
+        introImage.removeEventListener('error', start);
+        timeline?.kill();
+      };
     },
     {scope: loaderRef}
   );
