@@ -82,7 +82,7 @@ export function ProductPage() {
                 </button>
               ))}
             </div>
-            <p className="product-gallery-note"><PackageCheck size={14} /> Preview five featured items from your Collector's Box.</p>
+            <p className="product-gallery-note"><PackageCheck size={14} /> Browse all nine pieces. Swipe the thumbnails to see more.</p>
           </div>
 
           <div className="product-purchase-panel">
@@ -98,7 +98,7 @@ export function ProductPage() {
               <div className="product-price-line"><b>{format(PRODUCT.price)}</b><s>{format(PRODUCT.oldPrice)}</s><span>Free standard delivery</span></div>
               <p>One Collector's Box. All 9 items included.</p>
             </div>
-            <p className="product-intro">Bring the Vice City mood to your setup. A curated mix of collectibles, artwork and a display lamp, together in one Collector's Edition drop.</p>
+            <p className="product-intro">Bring the Vice City mood to your setup and beyond. The box brings together apparel, accessories, artwork, and a display lamp in one nine-piece drop.</p>
 
             <div className="product-quantity-row">
               <label htmlFor="product-quantity">Quantity<small id="product-quantity-limit">Max {MAX_ORDER_QUANTITY} per order</small></label>
@@ -124,7 +124,7 @@ export function ProductPage() {
             </div>
 
             <ul className="product-buy-benefits">
-              <li><Check size={16} /> 9 display-ready Collector's Edition items</li>
+              <li><Check size={16} /> 9 Collector's Edition pieces in one box</li>
               <li><Check size={16} /> Protective packing for your collection</li>
               <li><Check size={16} /> Tracking updates after dispatch</li>
             </ul>
@@ -142,7 +142,7 @@ export function ProductPage() {
       </section>
 
       <section className="product-detail-band">
-        <article><span>01</span><b>See the collection</b><p>Browse all nine item slots below. More product images and details will be added as they are confirmed.</p></article>
+        <article><span>01</span><b>See every piece</b><p>Browse images and details for all nine pieces in the Collector's Box.</p></article>
         <article><span>02</span><b>Review before payment</b><p>Check your quantity, subtotal, and free standard delivery in your cart before checkout.</p></article>
         <article><span>03</span><b>Support for your order</b><p>Delivery updates and clear support links keep you informed from pre-order to dispatch.</p></article>
       </section>

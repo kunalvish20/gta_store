@@ -18,7 +18,7 @@ export const PRODUCT = {
   reviews: 128,
   tag: 'Pre-Order Drop',
   description:
-    "A premium pre-order Collector's Edition drop built around black surfaces, neon nights and Vice-inspired energy.",
+    "A nine-piece pre-order collection of Vice-inspired apparel, accessories, artwork, and display pieces in one Collector's Box.",
   highlights: [
     "9 display-ready Collector's Edition items",
     'Secure Razorpay checkout',
@@ -33,28 +33,57 @@ export const PRODUCT_PATH = `/product/${PRODUCT.id}`;
 
 export const BOX_ITEMS = [
   {
-    name: 'Gaming collectible',
-    detail: 'Hero desk collectible for the main display moment.',
-    src: '/assets/gamibng.png'
+    name: "Collector's Box",
+    heading: 'The collection starts here.',
+    detail: "The illustrated Collector's Box brings the nine-piece drop together, with vivid Vice-inspired artwork on every visible side.",
+    src: '/assets/collector-box.webp'
   },
   {
-    name: "Collector's Box",
-    detail: "A closer look at the Collector's Edition box.",
-    src: '/assets/Gta-box.webp'
+    name: 'VI hoodie',
+    heading: 'Take the drop beyond your setup.',
+    detail: 'A black pullover hoodie with a crisp palm-filled VI mark on the chest. A quiet everyday piece with a clear nod to the collection.',
+    src: '/assets/vi-hoodie.webp'
   },
   {
     name: 'Display lamp',
-    detail: 'Neon-style lamp piece for the Vice City shelf mood.',
+    heading: 'Bring the neon home.',
+    detail: 'The VI display lamp puts a bright pink accent on a desk or shelf, with palms and the game logo at the center of the glow.',
     src: '/assets/lamp_gta-VI.png'
   },
   {
     name: 'Vice City poster',
-    detail: 'Full visual poster insert for wall or desk display.',
+    heading: 'Put the city on your wall.',
+    detail: 'A wide illustrated poster featuring a collage of characters, vehicles, and coastal scenes around the VI artwork.',
     src: '/assets/poster-full.jpg'
   },
   {
+    name: 'Vice City door hanger',
+    heading: 'Do not disturb. Vice City calling.',
+    detail: 'A colorful door hanger with sunset palms, the VI artwork, and a playful message for your gaming space.',
+    src: '/assets/vice-city-door-hanger.webp'
+  },
+  {
+    name: 'Sticker pack',
+    heading: 'Make your gear your own.',
+    detail: 'A set of six bold graphics, from palm-filled VI marks to Vice City characters and playful slogans, ready for your favorite surfaces.',
+    src: '/assets/sticker-pack.webp'
+  },
+  {
+    name: 'Red bandana',
+    heading: 'A classic with a bold twist.',
+    detail: 'A bright red bandana with a white paisley pattern. Wear it, tie it to a bag, or add it to your display.',
+    src: '/assets/red-bandana.webp'
+  },
+  {
+    name: 'Game-case keychain',
+    heading: 'Carry a little Vice City.',
+    detail: 'A miniature blue game-case charm with colorful VI artwork, attached to a metal key ring.',
+    src: '/assets/game-case-keychain.webp'
+  },
+  {
     name: "Collector's logo card",
-    detail: 'Finishing insert with care and display details.',
+    heading: 'Finish with the signature artwork.',
+    detail: 'The bold VI logo card gives the collection one more display detail, with a pink-to-orange city palette.',
     src: '/assets/poster-logo.png',
     contain: true
   }
